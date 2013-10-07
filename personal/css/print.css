@@ -1,0 +1,19 @@
+/* print.css for the default template of Jlog
+ * see screen.css for more details
+ */
+
+/* -- hide -- */
+	#subnav, .skip, .entryform, .hidecomments, #entryform, hr { display: none; }
+
+/* -- main settings -- */
+	body { font-family: Georgia, "Times New Roman", Times, serif; }
+	h1 { text-align: right; margin-top: 0; }
+	blockquote { font-style: italic; }
+	
+/* -- links -- */
+	a { text-decoration: none; }
+	#main a:after { font-size: 70%; content:" <"attr(href)">"; }
+	#main .meta a:after, #main h2 a:after { content:""; }
+
+/* -- comments -- */
+	ul#commentslist { list-style-type: none; }

@@ -1,0 +1,213 @@
+/* screen.css for the standard Jlog <http://jeenaparadies.net/webdesign/jlog/> template.
+ *
+ * Author:  Jeena Paradies <http://jeenaparadies.net>
+ * License: GPL (see LICENSE.txt in this package)
+ *
+ */
+
+/* -- main positionering -- */
+    body {
+        font-size: 100.01%;
+        font-family: verdana, arial, sans-serif;
+        background: #ffdc6c url(img/body.png);
+        color: black;
+        min-width: 500px;
+        margin: 0 20px;
+        padding: 0;
+        text-align: center;
+    }
+    #container {
+        font-size: 0.8em;
+        text-align: left;
+        margin: 0 auto;
+        max-width: 800px;
+        background: url(img/banner.jpg) no-repeat 0 2.4em white;
+        border: 1px solid #2B2B2B;
+        border-top: 0;
+        position: relative;
+    }
+    #main {
+        margin: 0 0 0 25px;
+        padding: 190px 0 2em 0;
+        width: 64.5%;
+        float: left;
+    }
+
+    /* Clearfix-Hack */
+    #main:after {
+        content: "."; 
+        display: block; 
+        height: 0; 
+        clear: both; 
+        visibility: hidden;
+    }
+
+    #main {display: inline-table;}
+
+    /* Hides from IE-mac \*/
+    * html #main {height: 1%;}
+    #main {display: block;}
+    /* End hide from IE-mac */
+
+    /* -- logo -- */
+        h1 {
+            font-size: 2em;
+            font-weight: normal;
+            padding: 0 5%;
+            margin: 0;
+            background: url(img/cheese.png) right bottom repeat-y white;
+        }
+        h1 a:link, h1 a:visited { color: black; text-decoration: none; }
+    
+    /* -- pokal -- */
+        #pokal {
+            position: absolute;
+            left: -21px;
+            top: 4.5em;
+            width: 128px;
+            height: 198px;
+            background: url(img/pokal.png) no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+
+    /* -- subnavigation -- */
+        #subnav {
+            width: 26%;
+            margin: 1em 1px 1em 0;
+            float: right;
+            margin-top: 165px;
+            padding: 1% 1% 1% 2%;
+            font-size: 0.8em;
+            background: url(img/border.png) repeat-y white;
+        }
+        #subnav dt {
+            font-weight: bold;
+            margin-top: 1.5em;
+        }
+        #subnav dd {
+            padding: 0.5em;
+            margin: 0;
+            line-height: 120%;
+        }
+        #subnav ul {
+            margin: 0; padding: 0;
+            list-style-type: none;
+        }
+        #subnav ul li { margin-bottom: 0.5em; }
+        .rss img { vertical-align: middle; border: 0; width: 94px; height: 15px; }
+
+    /* -- footer -- */
+        #footer {
+         clear: both;
+         height: 60px;
+         background: url(img/footer.png) no-repeat top center;
+        }
+
+/* -- basic styles -- */
+    .skip {
+        position: absolute;
+        left: -999px;
+        width: 990px;
+    }
+    hr {
+        background-color: #aaa;
+        color: #aaa;
+        border: 0 none;
+        height: 1px;
+        margin: 1em 0;
+        clear: both;
+    }
+    .error { color: red; }
+    blockquote {
+        background: url(img/border.png) repeat-y;
+        padding: 0 0.5em;
+        font-style: italic;
+    }
+    #searchform { text-align: center; }
+    .meta.date { margin-top: 0; }
+    .meta { font-style: italic; font-size: 0.85em; }
+    .searchword { background: yellow; }
+
+    /* -- pictures -- */
+        .fl { float: left; margin: 0 1em 1em 0; }
+        .fr { float: right; margin: 0 0 1em 1em; }
+        #main img, dl.img {
+            border: 1px solid #aaa;
+            padding: 2px;
+            max-width: 95%;
+        }
+        dl.img dt { padding: 0; margin: 0;}
+        #main dl.img dt img { margin: 0; padding: 0; max-width: 100%; border: none; }
+        dl.img dd { margin: 0; padding: 0 0.3em; font-size: 90%; }
+        .teaser { clear: both; }
+
+    /* -- main link styles -- */
+        a:link { color: #18518b; }
+        a:visited { color: #555; }
+        a:hover { color: black; }
+
+    /* -- headlines -- */
+        h2, h3, h4, h5, h6 {
+            font-weight: normal;
+            font-family: verdana, sans-serif;
+            position: relative;
+            z-index: 2;
+        }
+        h2 { font-size: 1.7em; margin: 0; }
+        h3 { font-size: 1.2em; }
+        h4 { font-size: 1.1em; }
+        h5 { font-size: 1em; }
+        h6 { font-size: 0.9em; }
+        h2 a:link, h2 a:visited,
+        .teaser h3 a:link, .teaser h3 a:visited,
+        .teaser h4 a:link, .teaser h4 a:visited { text-decoration: none; color: black; }
+        h2 a:hover, .teaser h3 a:hover, .teaser h4 a:hover { text-decoration: underline; }
+        .teaser h3, .teaser h4 { margin: 0; }
+
+    /* -- textareas and inputs -- */
+        fieldset { border: 1px solid #aaa; padding: 1em;  }
+        legend { padding: 1em; font-weight: bold; }
+        input.long, input.short, input.userdata, textarea, select {
+            background: #f7f7f7;
+            border: 1px solid #bbb;
+            border-right: 1px solid #d8d8d8;
+            border-bottom: 1px solid #D8D8D8;
+        }
+
+/* -- aditional styles for the home- and searchpage -- */
+    .teaser h2 { font-size: 1.3em; }
+    .teaser h3, .teaser h4 { font-weight: bold; }
+    .teaserpic { float: right; margin: 0 0 1em 1em; }
+    .entries , .search li { list-style-type: none; }
+    .search li { border-top: 1px solid #d8d8d8; padding-top: 1em; }
+    ul.search { margin: auto 5%; padding-left: 0; }
+    h2.search { text-align: center; }
+    .archive { margin-left: 5%; }
+    .archivenavigation { text-align: center; border-top: 1px dotted #aaa; padding-top: 0.7em; margin-top: 2em; }
+
+/* -- comments -- */
+    p.hidecomments { font-size: 0.75em; text-align: right; line-height: 1px; padding: 0; margin-bottom: 0; }
+    #preview li { border: solid 1px red; }
+    ul.comments .meta { font-size: 1.3em; }
+    ul.comments { list-style-type: none; font-size: 0.9em;}
+    ul.comments li {
+        padding: 0 1em 0.5em 1em;
+        margin: 1em 0;
+        background: #f7f7f7;
+        border: 1px solid #ccc;
+        border-left: 1px solid #d8d8d8;
+        border-top: 1px solid #D8D8D8;
+        overflow-x: scroll;
+    }
+    ul.comments li p { margin: 0.5em; }
+    ul.comments a.permalink {
+        font: normal bold 1.5em monospace;
+        border-right: 1px solid #d8d8d8;
+        text-decoration: none;
+        padding-right: 0.2em;
+        margin-right: 0.2em;
+    }
+    ul.comments a.permalink:hover { text-decoration: underline; }
+    #pingbackslist { margin-bottom: 3em; }
+    textarea { width: 90%; min-width: 10em; }

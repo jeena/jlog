@@ -1,0 +1,34 @@
+/* additional hacks for IE
+ * btw. IE sucks! ;-)
+ */
+
+    #pokal { /* do not display the alpha image */
+        display: none;
+    }
+    
+    #container { /* IE max-width and PNG no-alpha hack */
+        height: 1%;
+        width: 750px;
+        width:expression(document.body.clientWidth>805?"800px":"auto");
+        background-image: url(img/banner-ielte6.jpg);
+    }
+
+    #main { width: 63%;  margin: 0 0 0 15px; }
+
+    ul.comments li {
+        overflow-x: scroll;
+    }
+
+    #admin table { /* adapting the font size for IE 5.x */
+        font-size: 1em;
+    }
+    
+    * html #subnav {   /* Box-Model Bug */
+        content:"\"; width: 30%; padding: 2em 1.5em;
+    }
+
+    * html #main { width: 62.5%; margin: 0 0 0 15px; }
+    
+    html + body #admin { /* close the hole in IE 5.0 */
+        margin: 0;
+    }

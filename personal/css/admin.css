@@ -1,0 +1,28 @@
+/* -- CSS for the Jlog admincenter v0.2 -- */
+/* -- last edit 15 Dec 2004 -- */
+
+#admin { margin: 0; padding: 0; border: 0; } 
+#admin p {  font-weight: normal; }
+#admin input, #admin textarea { font-weight: normal; font-family: inherit; font-size: inherit; padding-left: 0.2em; }
+#admin input.long { width: 90%; }
+#admin input.short { width: 3em; }
+#admin input.button { width: auto; margin: 1em; }
+#admin textarea { width: 90%; }
+#admin form dt { font-weight: normal; margin: 0.5em 0 0 0; }
+#admin form dd { margin: 0 0 0 1em; }
+#admin form textarea.small { height: 2.7em; }
+#admin form textarea.big { height: 15em; }
+
+#admin table { empty-cells: show; border-spacing: 0; font-size: 1em; }
+#admin table tr td,
+#admin table tr th { padding: 3px 8px; border-left: 1px dotted #bdaa94; vertical-align: top; }
+#admin table tr th { border-bottom: 1px dotted #bdaa94; }
+#admin table a, #admin table a img { border: none; background: none; }
+
+#admin a img.admin { border: none; background: none; }
+
+#admin h2.preview { color: red; text-align: center; background-color: white; }
+#admin .preview { background: #FFF5F7; margin: 0 -10px; padding: 10px; }
+
+#admin .hide { display: none; } 
+#admin-menu { position: relative; z-index: 2; }

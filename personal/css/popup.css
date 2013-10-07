@@ -1,0 +1,34 @@
+body {
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+ color: black;
+ font-size: 0.8em;
+ background-color: #eee;
+ margin: 0px;
+ padding: 10px 5%;
+}
+h1 {
+ margin: 0px 0px 20px 0px;
+ font-size: 140%;
+}
+.caution {
+ color: red;
+ font-weight: bold;
+}
+ul { list-style-type: none; margin: 0; }
+ul.error { list-style-type: disc; }
+li { margin: 0.5em; }
+.error { color: red; }
+a { color: brown; }
+img { border: none; }
+a img {
+ border: none;
+ margin: 0 0 0.5em 0;
+}
+p { margin: 0; padding: 0.5em 0 0.5em 0 }
+blockquote {
+ border: 1px solid #999; 
+ border-left: 3px solid #aaa;
+ padding: 0 1em 0.3em 1em;
+ margin: 0;
+ background: #eee url(/img/anfuehrungszeichen.png) 2% 1px no-repeat;
+}
