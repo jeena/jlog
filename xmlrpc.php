@@ -1,4 +1,7 @@
 <?php # A class for getting and sending Pingbacks
+if (!isset($HTTP_RAW_POST_DATA))
+	$HTTP_RAW_POST_DATA = file_get_contents('php://input');
+
  $HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
  if(!defined('JLOG_BASEPATH')) require_once('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
  require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'ixr-library.inc.php');
@@ -95,7 +98,7 @@ class Jlog_GetPingback {
         if($blogrow['allowpingback'] === 0) $this->send_error(33, 'The specified target URI cannot be used as a target. It it is not a pingback-enabled resource.');
         else $this->reference = $blogrow['id'];
 
-        $s =& new HTTP_Request($this->sourceURI);
+        $s = new HTTP_Request($this->sourceURI);
         if(PEAR::isError($s->sendRequest())) $this->send_error(16, 'The source URI does not exist.');
         else {
             $source = $s->getResponseBody();
@@ -214,7 +217,7 @@ class Jlog_SendPingback {
 
     function send($pagelinkedto) {
 
-        $s =& new HTTP_Request($pagelinkedto);
+        $s = new HTTP_Request($pagelinkedto);
         if(PEAR::isError($s->sendRequest())) return $pagelinkedto." &mdash; Error: The source URI does not exist.";
         else {
             $xmlrpcserver = $s->getResponseHeader("X-Pingback");
