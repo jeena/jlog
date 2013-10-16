@@ -1,5 +1,5 @@
 <?php
-if(ereg('gzip', getenv('HTTP_ACCEPT_ENCODING')) &&
+if(strpos(getenv('HTTP_ACCEPT_ENCODING'), 'gzip') !== false &&
 	!ini_get('zlib.output_compression'))
 {
 	ob_start('ob_gzhandler');
