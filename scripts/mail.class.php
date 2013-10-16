@@ -65,9 +65,12 @@ class Jlog_Mail
     */
     function Jlog_Mail()
     {
+	# XXX don't know if needed
+	mb_internal_encoding('UTF-8');
+
         $this->_from = 'no-reply@' . $_SERVER['SERVER_NAME'];
         $this->_subject = 'Kein Betreff - No Subject';
-        $this->addHeader('MIME-Version', '1.0');
+        #XXX$this->addHeader('MIME-Version', '1.0');
         $this->addHeader('Content-Type', 'text/plain; charset=UTF-8');
         $this->addHeader('Content-Transfer-Encoding', '8bit');
         $this->addHeader('X-Mailer', 'Jlog with PHP ' . phpversion());
@@ -84,7 +87,8 @@ class Jlog_Mail
     function setFrom($email, $name) 
     {
         if (!empty($email) and !empty($name)) {
-            $this->_from = "$name <$email>";
+	    # XXX
+            $this->_from = mb_encode_mimeheader($name) . " <$email>";
         }
     }
     
@@ -233,7 +237,8 @@ class Jlog_Mail
             // remove line breaks to prevent header injection
             $value = str_replace(array("\r", "\n"), '', $value);
             // add header
-            $headers .= "$key: $value\r\n";
+            #XXX$headers .= "$key: $value\r\n";
+            $headers .= "$key: $value\n";
         }
         return $headers;
     }
@@ -267,10 +272,10 @@ class Jlog_Mail
         
         $safe_mode = strtolower(ini_get('safe_mode'));
         if ($safe_mode == 1 or $safe_mode == 'on' or $safe_mode == 'yes') {
-            @mail($to, $this->_subject, $this->_text, $this->getCleanHeaderString());
+            @mb_send_mail($to, $this->_subject, $this->_text, $this->getCleanHeaderString());
         }
         else {
-            @mail($to, $this->_subject, $this->_text, $this->getCleanHeaderString(), "-f".JLOG_EMAIL);
+            @mb_send_mail($to, $this->_subject, $this->_text, $this->getCleanHeaderString(), "-f".JLOG_EMAIL);
         }
         return true;
     }
