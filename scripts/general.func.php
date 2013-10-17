@@ -310,4 +310,9 @@ class JLOG_Tags {
           else return;
       }
 }
-?>
+
+// security functions
+function hashPassword($pw) {
+	// TODO: see iusses/2 for details
+	return md5($pw);
+}

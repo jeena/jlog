@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $dispatch_login) {
 	    die('Somebody tried to hack Jlog with Response-Splitting.');
 	}
 	
-	if (md5($passwort) == JLOG_ADMIN_PASSWORD) {
+	if (hashPassword($passwort) == JLOG_ADMIN_PASSWORD) {
         $_SESSION['logged_in'] = true;
 		session_regenerate_id();	// neue SID
     	

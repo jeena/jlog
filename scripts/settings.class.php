@@ -165,8 +165,8 @@ class Settings {
                 $this->jlog_admin_password = JLOG_ADMIN_PASSWORD;
             }
             else {
-                $this->d['jlog_admin_password'] = md5($this->d['jlog_admin_password']);
-                $this->d['jlog_admin_password_again'] = md5($this->d['jlog_admin_password_again']);
+                $this->d['jlog_admin_password'] = hashPassword($this->d['jlog_admin_password']);
+                $this->d['jlog_admin_password_again'] = hashPassword($this->d['jlog_admin_password_again']);
             }
             $this->d['jlog_installed_version'] = JLOG_INSTALLED_VERSION;
             $this->d['jlog_installed_url'] = JLOG_INSTALLED_URL;
@@ -174,8 +174,8 @@ class Settings {
             $this->d['jlog_installed_mysqlv'] = JLOG_INSTALLED_MYSQLV;
         }
         else {
-            $this->d['jlog_admin_password'] = md5($this->d['jlog_admin_password']);
-            $this->d['jlog_admin_password_again'] = md5($this->d['jlog_admin_password_again']);
+            $this->d['jlog_admin_password'] = hashPassword($this->d['jlog_admin_password']);
+            $this->d['jlog_admin_password_again'] = hashPassword($this->d['jlog_admin_password_again']);
         }
         
         if((defined('JLOG_SETUP') AND JLOG_SETUP === true)) 
@@ -408,7 +408,7 @@ class Settings {
         if(empty($this->d['jlog_website'])) $errors[] = $this->l['admin']['e_website'];
         if(empty($this->d['jlog_publisher'])) $errors[] = $this->l['admin']['e_publisher'];
         if(defined('JLOG_SETUP') AND JLOG_SETUP) {
-          if($this->d['jlog_admin_password'] == md5(""))
+          if($this->d['jlog_admin_password'] == hashPassword(""))
           $errors[] = $this->l['admin']['e_admin_password'];
           elseif($this->d['jlog_admin_password'] !== $this->d['jlog_admin_password_again'])
           $errors[] = $this->l['admin']['e_admin_password_again'];

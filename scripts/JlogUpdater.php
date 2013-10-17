@@ -59,7 +59,7 @@ class JlogUpdater
     
     function performUpdate($l) 
     {
-        if (JLOG_AMDIN_PASSWORD !== md5($_POST['jlog_password']) and JLOG_ADMIN_PASSWORD !== md5(utf8_decode($_POST['jlog_password']))) {
+        if (JLOG_AMDIN_PASSWORD !== hashPassword($_POST['jlog_password']) and JLOG_ADMIN_PASSWORD !== hashPassword(utf8_decode($_POST['jlog_password']))) {
             return '<p>' . $l['admin']['login_false_pw'] . '</p>';
         }
         
