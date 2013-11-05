@@ -88,8 +88,14 @@ function strip($_data) {
 }
 // escape input for mysql
 function escape_for_mysql($_data) {
-        if (is_array($_data)) foreach($_data as $key => $val) $_data[$key] = escape_for_mysql($val);
-        else $_data = mysql_escape_string($_data);
+        if (is_array($_data))
+		foreach($_data as $key => $val) $_data[$key] = escape_for_mysql($val);
+        else
+		$_data = mysql_real_escape_string($_data);
+		// uses last opened MySQL link implicitly
+		// assumption is valid because this function is never called
+		// before mysql_connect
+
         return $_data;
 }
 // htmlspecialchars a whole array
