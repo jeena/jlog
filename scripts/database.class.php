@@ -8,15 +8,16 @@
      var $_error = "";
 
        //Konstruktor
-        function Query($sql)
+        function __construct($sql)
         {
-        // Query in der Klasse speichern
-        	$this->_sql = trim($sql);
-        	$this->_result = mysql_query($this->_sql);
+	  global $mysql;
+          // Query in der Klasse speichern
+          $this->_sql = trim($sql);
+          $this->_result = mysqli_query($mysql, $this->_sql);
           if(!$this->_result) {
-            $this->_errno = mysql_errno();
-            $this->_error = mysql_error();
-          }       
+            $this->_errno = mysqli_errno($mysql);
+            $this->_error = mysqli_error($mysql);
+          }
         }
 
        //Methoden
@@ -46,11 +47,12 @@
         }
 
         function fetch() {
+         global $mysql;
          if($this->error()) {
             echo "An Error has occurred, please check your MySQL-Query.";
             $return = null;
          } 
-         else $return = mysql_fetch_assoc($this->_result);
+         else $return = mysqli_fetch_assoc($this->_result);
          return $return;
         }
 
@@ -58,13 +60,13 @@
          if($this->error()) {
             $return = -1;
          }
-         else $return = mysql_num_rows($this->_result);
+         else $return = mysqli_num_rows($this->_result);
          return $return;
         }
         
         function free() {
         // Speicher freimachen
-         mysql_free_result($this->_result);
+         mysqli_free_result($this->_result);
         }
 
     }
