@@ -66,7 +66,7 @@ if(defined('JLOG_ADMIN')) require_once(JLOG_BASEPATH.'lang'.DIRECTORY_SEPARATOR.
 // connect to database
 $mysql = @mysqli_connect(JLOG_DB_URL, JLOG_DB_USER, JLOG_DB_PWD, JLOG_DB);
 if ($mysql == FALSE) {
-  mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysqli_error($mysql));
+  mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysqli_connect_error());
   die("<strong>".$l['db_error']."</strong><br />".$l['plz_try_again'].".");
 }
 

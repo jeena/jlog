@@ -27,7 +27,7 @@ function archive() {
 // get year links
 class Year_Links {
 
-        function Year_Links($get, $start, $page, $l, $cat="") {
+        function __construct($get, $start, $page, $l, $cat="") {
          $date  = getdate();
          $this->_now = $date['year'];
          $this->_start = $start;
@@ -296,7 +296,7 @@ function my_serialize_cfg($arg) {
 class JLOG_Tags {
   var $tree = array();
 
-  function JLOG_Tags($body) {
+  function __construct($body) {
       preg_match_all('/<jlog:([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims', $body, $this->tree);
   }
 

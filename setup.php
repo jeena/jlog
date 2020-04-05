@@ -177,7 +177,7 @@
 
     global $l;
     global $mysql;
-    if(!($mysql = @mysqli_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'], $data['jlog_db']))) $errors[] = "Falsche Zugangsdaten | ".mysqli_error($mysql);
+    if(!($mysql = @mysqli_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'], $data['jlog_db']))) $errors[] = "Falsche Zugangsdaten | ".mysqli_connect_error();
     elseif(!@mysqli_select_db($mysql, $data['jlog_db'])) $errors[] = "Datenbank ".$data['jlog_db']." extistiert nicht".mysqli_error($connect);
     elseif(!version_compare(mysqli_get_server_info($mysql), JLOG_MYSQLV, ">=") == 1) $errors[] = $l['admin']['s_mysqlv_tolow'];
     else {
