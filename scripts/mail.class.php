@@ -63,7 +63,7 @@ class Jlog_Mail
     * Jlog_Mail() - constructor
     *
     */
-    function Jlog_Mail()
+    function __construct()
     {
 	# XXX don't know if needed
 	mb_internal_encoding('UTF-8');

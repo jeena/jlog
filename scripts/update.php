@@ -1,6 +1,6 @@
 <?php
 $now_date = getdate();
-
+$errors = array();
 $data['rss'] = "";
 $data['rss_full'] = "";
 $data['sub'] = "";
