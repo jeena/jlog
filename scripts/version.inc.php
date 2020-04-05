@@ -23,8 +23,8 @@
  * $Date: 2009-01-13 21:58:12 +0100 (Tis, 13 Jan 2009) $
  */
 
-define('JLOG_SOFTWARE_VERSION', '1.1.3');
-define('JLOG_SOFTWARE_URL', 'http://jeenaparadies.net/projects/jlog');
+define('JLOG_SOFTWARE_VERSION', '1.2.0');
+define('JLOG_SOFTWARE_URL', 'https://github.com/jeena/jlog/');
 define('JLOG_SOFTWARE_PHPV', '4.1.1');
 define('JLOG_SOFTWARE_MYSQLV', '4.1.0');
 

@@ -12,7 +12,6 @@
  header("Content-Type: text/html; charset=UTF-8");
 
 
- define("JLOG_NEW_VERSION", '1.4.0');
  define("JLOG_SETUP", true);
  define("JLOG_ADMIN", false);
  $basepath = dirname( __FILE__ ).DIRECTORY_SEPARATOR;
