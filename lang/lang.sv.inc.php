@@ -86,6 +86,7 @@
 "err404_message"           => "Denna sida existerar tyvärr inte. Försök hitta den genom sökfunktionen.",
 
 "language"                 => "sv-se",
+"html_language"            => "sv",
 "locale"                   => array('sv_SE', 'sve_sve'),
 "date_format"              => "%Y-%B-%d kl %H:%M",
 "date_format_comment"      => "%Y-%m-%d",

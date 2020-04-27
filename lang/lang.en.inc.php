@@ -86,6 +86,7 @@
 "err404_message"           => "There is no such page. Please try the search engine on this page.",
 
 "language"                 => "en-gb",
+"html_language"            => "en",
 "locale"                   => array(  "en_US", "us", "verUS" ),
 "date_format"              => "%d. %B %Y um %H:%M Uhr",
 "date_format_comment"      => "%d.%m.%Y",

@@ -86,6 +86,7 @@
 "err404_message"           => "Non ci sono file riguardanti la ricerca in questa pagina. Perfavore prova a usare il motore di ricerca di questa pagina.",
 
 "language"                 => "it-it",
+"html_language"            => "it",
 "locale"                   => array( "it_IT", "it" ),
 "date_format"              => "%d. %B %Y alle %H:%M",
 "date_format_comment"      => "%d.%m.%Y",
