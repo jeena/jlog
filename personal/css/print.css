@@ -3,7 +3,7 @@
  */
 
 /* -- hide -- */
-	#subnav, .skip, .entryform, .hidecomments, #entryform, hr { display: none; }
+	aside, #subnav, .skip, .entryform, .hidecomments, #entryform, hr { display: none; }
 
 /* -- main settings -- */
 	body { font-family: Georgia, "Times New Roman", Times, serif; }
@@ -12,8 +12,8 @@
 	
 /* -- links -- */
 	a { text-decoration: none; }
-	#main a:after { font-size: 70%; content:" <"attr(href)">"; }
-	#main .meta a:after, #main h2 a:after { content:""; }
+	main a:after { font-size: 70%; content:" <"attr(href)">"; }
+	main .meta a:after, main h2 a:after { content:""; }
 
 /* -- comments -- */
 	ul#commentslist { list-style-type: none; }
