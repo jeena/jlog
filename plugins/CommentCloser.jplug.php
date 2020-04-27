@@ -91,7 +91,7 @@ EOT;
         
 		$output .= <<<EOT
 automatisch</label>
-<input type="submit" name="commclose_do" value="schlie&#223;en" />.</p>
+<button name="commclose_do" value="schlie&#223;en">schlie&#223;en</button></p>
 <p>Nach der angegeben Zeit k&#246;nnen Beitr&#228;ge nicht mehr kommentiert werden.</p>
 </form>
 EOT;

@@ -22,7 +22,7 @@
       <dd>
        <form action="<jlog:homelink />/search.php">
         <p><input class="userdata" type="search" name="q" size="15" value="" />
-         <button class="send" type="submit" value="<jlog:search />"><jlog:search /></button></p>
+         <button class="send" value="<jlog:search />"><jlog:search /></button></p>
        </form>
       </dd>
      <dt><jlog:categorieslist-h /></dt>

@@ -83,7 +83,7 @@ if (empty($_FILES['probe']) or isset($errors))
   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>">
   <?php echo add_session_id_input_tag() ?>
   <input type="file" name="probe" /><br><br>
-  <input type="submit" value="<?php echo $l['admin']['pic_upload'] ?>">
+  <button value="<?php echo $l['admin']['pic_upload'] ?>"><?php echo htmlspecialchars($l['admin']['pic_upload']) ?></button>
  </form>
  <?php
  }

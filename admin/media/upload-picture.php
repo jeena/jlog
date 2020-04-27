@@ -63,7 +63,7 @@
         <input id="class" type="text" size="20"></p>
      <p><?php echo $l['admin']['pic_alt'] ?><br />
         <input id="alt" type="text" size="20"></p>
-     <p><input type="submit" value="<?php echo $l['admin']['pic_insert'] ?>"></p>
+     <p><button value="<?php echo $l['admin']['pic_insert'] ?>"><?php echo htmlspecialchars($l['admin']['pic_insert']) ?></button></p>
      </form>
     <?php
    }
@@ -79,7 +79,7 @@ if (empty($_FILES['probe']) or isset($errors))
   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size ?>">
   <?php echo add_session_id_input_tag() ?>
   <input type="file" name="probe" /><br><br>
-  <input type="submit" value="<?php echo $l['admin']['pic_upload'] ?>">
+  <button value="<?php echo $l['admin']['pic_upload'] ?>"><?php echo htmlspecialchars($l['admin']['pic_upload']) ?></button>
  </form>
  <?php
  }
