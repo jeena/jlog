@@ -25,7 +25,7 @@
 					$c['main'] .= $categories->output_form($form_input, 'new', $l['admin']['cat_new']);
 				}
 			}
-			else $c['main'] .= $categories->output_form('', 'new', $l['admin']['cat_new']);
+			else $c['main'] .= $categories->output_form(array('id' => NULL, 'name' => NULL, 'url' => NULL, 'description' => NULL), 'new', $l['admin']['cat_new']);
 			break;
 
 		case 'change':
