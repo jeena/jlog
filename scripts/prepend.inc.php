@@ -25,6 +25,8 @@
 
 // load settings and version information
 error_reporting(E_ALL ^ E_NOTICE);
+ini_set('display_errors', 1);
+
 require_once(dirname(__FILE__).DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."personal".DIRECTORY_SEPARATOR."settings.inc.php");
 require_once(JLOG_BASEPATH."scripts".DIRECTORY_SEPARATOR."version.inc.php");
  
@@ -62,20 +64,15 @@ require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'comments.php');
 if(defined('JLOG_ADMIN')) require_once(JLOG_BASEPATH.'lang'.DIRECTORY_SEPARATOR.'lang-admin.'.JLOG_LANGUAGE.'.inc.php');
 
 // connect to database
-$connect = @mysql_connect(JLOG_DB_URL, JLOG_DB_USER, JLOG_DB_PWD);
-if ($connect == FALSE) {
-  mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysql_error());
+$mysql = @mysqli_connect(JLOG_DB_URL, JLOG_DB_USER, JLOG_DB_PWD, JLOG_DB);
+if ($mysql == FALSE) {
+  mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysqli_connect_error());
   die("<strong>".$l['db_error']."</strong><br />".$l['plz_try_again'].".");
 }
-// select our database
-$select = @mysql_select_db(JLOG_DB);
-if ($connect == FALSE) {
-  mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysql_error());
-  die("<strong>".$l['db_error']."</strong><br />".$l['plz_try_again'].".");
-}
+
 // do some settings
-@mysql_query("SET NAMES utf8");
-@mysql_query("SET sql_mode=''");
+@mysqli_query($mysql, "SET NAMES utf8");
+@mysqli_query($mysql, "SET sql_mode=''");
 
 // some more code that needs to run for every page - however, this
 // code requires an established connection to the database

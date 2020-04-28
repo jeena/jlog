@@ -12,7 +12,6 @@
  header("Content-Type: text/html; charset=UTF-8");
 
 
- define("JLOG_NEW_VERSION", '1.1.0');
  define("JLOG_SETUP", true);
  define("JLOG_ADMIN", false);
  $basepath = dirname( __FILE__ ).DIRECTORY_SEPARATOR;
@@ -50,6 +49,7 @@
  define("JLOG_MYSQLV", JLOG_SOFTWARE_MYSQLV);
  
  $errors = array();
+ $mysql = null;
  
  $l['admin']['submit'] = $l['admin']['s_install'];
  $setup = new Settings($l);
@@ -111,6 +111,7 @@
 
  function create_mysql_tables($data) {
   # returns false if all tables were created, if not returns the $errors array
+  $errors = array();
 
   $sql['content'] = '
     CREATE TABLE `'.$data['jlog_db_prefix'].'content` (
@@ -128,7 +129,7 @@
       section varchar(10) default \'weblog\',
       UNIQUE KEY id (id),
       FULLTEXT KEY content_index (content, topic, teaser, keywords)
-    ) TYPE=MyISAM CHARACTER SET utf8;';
+    ) CHARACTER SET utf8;';
 
   $sql['comments'] = '
    CREATE TABLE `'.$data["jlog_db_prefix"].'comments` (
@@ -146,7 +147,7 @@
      PRIMARY KEY (id),
      UNIQUE KEY sid (sid),
      FULLTEXT KEY comments_index ( name, city, email, homepage, content )
-   ) TYPE=MyISAM CHARACTER SET utf8;';
+   ) CHARACTER SET utf8;';
    
   $sql['categories'] = '
    CREATE TABLE `'.$data["jlog_db_prefix"].'categories` (
@@ -156,13 +157,13 @@
      description text,
      UNIQUE KEY id (id),
      UNIQUE KEY url (url)
-   ) TYPE=MyISAM CHARACTER SET utf8;';
+   ) CHARACTER SET utf8;';
    
   $sql['catassign'] = '
    CREATE TABLE `'.$data["jlog_db_prefix"].'catassign` (
      content_id int(11),
      cat_id tinyint(4)
-   ) TYPE=MyISAM CHARACTER SET utf8;';
+   ) CHARACTER SET utf8;';
 
   $sql['attributes'] = '
    CREATE TABLE `'.$data["jlog_db_prefix"].'attributes` (
@@ -172,13 +173,13 @@
      value varchar(250) NOT NULL default \'\',
      PRIMARY KEY (id),
      KEY entry_id (entry_id)
-   ) TYPE=MyISAM CHARACTER SET utf8;';
+   ) CHARACTER SET utf8;';
 
     global $l;
-
-    if(!@mysql_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'])) $errors[] = "Falsche Zugangsdaten | ".mysql_error();
-    elseif(!@mysql_select_db($data['jlog_db'])) $errors[] = "Datenbank ".$data['jlog_db']." extistiert nicht".mysql_error();
-    elseif(!version_compare(mysql_get_server_info(), JLOG_MYSQLV, ">=") == 1) $errors[] = $l['admin']['s_mysqlv_tolow'];
+    global $mysql;
+    if(!($mysql = @mysqli_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'], $data['jlog_db']))) $errors[] = "Falsche Zugangsdaten | ".mysqli_connect_error();
+    elseif(!@mysqli_select_db($mysql, $data['jlog_db'])) $errors[] = "Datenbank ".$data['jlog_db']." extistiert nicht".mysqli_error($connect);
+    elseif(!version_compare(mysqli_get_server_info($mysql), JLOG_MYSQLV, ">=") == 1) $errors[] = $l['admin']['s_mysqlv_tolow'];
     else {
 		 new Query("SET NAMES utf8");
      $create['content'] = new Query($sql['content']);
@@ -265,7 +266,7 @@
  </head>
  <body>
   <div id="container">
-   <h1><a href="http://jeenaparadies.net/projects/jlog/" title="Jlog v'.JLOG_NEW_VERSION.'"><img id="logo" src="http://jeenaparadies.net/img/jlog-logo.png" style="width: 210px; height: 120px;" alt="Jlog" /></a> SETUP</h1>
+   <h1><a href="http://github.com/jeena/jlog/" title="Jlog v'.JLOG_NEW_VERSION.'"><img id="logo" src="http://paradies.jeena.net/img/jlog-logo.png" style="width: 210px; height: 120px;" alt="Jlog" /></a> SETUP</h1>
     '.$content.'
   </div>
  </body>

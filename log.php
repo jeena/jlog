@@ -149,7 +149,8 @@ elseif(isset($com_form['form_submitted']) AND $com_form['form_submitted'] == $l[
                 )"; 
 
         $newcomment = new Query($sql);
-        $cid = mysql_insert_id();
+global $mysql;
+        $cid = mysqli_insert_id($mysql);
         if($newcomment->error()) {
             if($newcomment->getErrno() == 1062) {
                 $errors[] = $l['comments_duplicate'];

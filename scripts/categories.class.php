@@ -6,7 +6,7 @@ class Categories {
     var $categories = array();
     var $l = array();
 
-    function Categories($l) {
+    function __construct($l) {
     
         $this->l = $l;
     

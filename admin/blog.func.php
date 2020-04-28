@@ -179,7 +179,8 @@ global $l, $plugins;
                 '".$form_input['allowpingback']."'  );";
 
     $writeblog = new Query($sql);
-    $id = mysql_insert_id();
+global $mysql;
+    $id = mysqli_insert_id($mysql);
      if($writeblog->error()) {
         echo "<pre>\n";
         echo $writeblog->getError();

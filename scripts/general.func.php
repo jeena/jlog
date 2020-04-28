@@ -27,7 +27,7 @@ function archive() {
 // get year links
 class Year_Links {
 
-        function Year_Links($get, $start, $page, $l, $cat="") {
+        function __construct($get, $start, $page, $l, $cat="") {
          $date  = getdate();
          $this->_now = $date['year'];
          $this->_start = $start;
@@ -88,10 +88,11 @@ function strip($_data) {
 }
 // escape input for mysql
 function escape_for_mysql($_data) {
+global $mysql;
         if (is_array($_data))
 		foreach($_data as $key => $val) $_data[$key] = escape_for_mysql($val);
         else
-		$_data = mysql_real_escape_string($_data);
+		$_data = mysqli_real_escape_string($mysql, $_data);
 		// uses last opened MySQL link implicitly
 		// assumption is valid because this function is never called
 		// before mysql_connect
@@ -295,7 +296,7 @@ function my_serialize_cfg($arg) {
 class JLOG_Tags {
   var $tree = array();
 
-  function JLOG_Tags($body) {
+  function __construct($body) {
       preg_match_all('/<jlog:([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims', $body, $this->tree);
   }
 
