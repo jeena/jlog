@@ -63,7 +63,7 @@ $c['main'] = '
       <input class="userdata" id="password" type="password" name="password" />
       <input style="display: none;" name="username" type="text" value="do-not-change" /></p>
    <p><input type="hidden" name="url" value="' . htmlspecialchars(!empty($get['url']) ? $get['url'] : '') . '" />
-      <input type="submit" value="' . $l['admin']['login_send'] . '" /></p>
+      <button value="' . $l['admin']['login_send'] . '">' . htmlspecialchars($l['admin']['login_send']) . '</button></p>
   </form>
 ';
 

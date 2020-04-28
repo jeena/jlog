@@ -29,9 +29,10 @@
  }
  require_once('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
 
- $c['meta']['robots']       = "noindex, follow";
- $c['meta']['description']  = htmlspecialchars(strip_tags(str_replace("\n", '', JLOG_DESCRIPTION)), ENT_QUOTES);
- $c['meta']['title']        = $l['index_topic'];
+ $c['meta']['robots']        = "noindex, follow";
+ $c['meta']['description']   = htmlspecialchars(strip_tags(str_replace("\n", '', JLOG_DESCRIPTION)), ENT_QUOTES);
+ $c['meta']['title']         = $l['index_topic'];
+ $c['meta']['html_language'] = $l['html_language'];
 
  $c['main'] = "";
  $cc = array();

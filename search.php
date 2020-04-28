@@ -9,7 +9,7 @@
 
     $c['main'] .= '     <form id="searchform" action="'.JLOG_PATH.'/search.php" accept-charset="UTF-8">
       <p><input class="userdata" type="text" name="q" size="30" value="'.htmlspecialchars($searchstring, ENT_QUOTES).'" />
-         <input class="send" type="submit" value="'.$l['content_search'].'" /></p>
+         <button class="send" value="'.$l['content_search'].'">'.htmlspecialchars($l['content_search']).'</button></p>
      </form>
      <script type="text/javascript">jlog_searchpage = true;</script>
 ';

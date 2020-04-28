@@ -86,6 +86,7 @@
 "err404_message"           => "Diese Seite existiert leider nicht. Versuchen Sie sie über die Suchfunktion zu finden.",
 
 "language"                 => "de-de",
+"html_language"            => "de",
 "locale"                   => array('de_DE.UTF-8', 'de_DE.UTF-8@euro', 'de_DE'),
 "date_format"              => "%d. %B %Y um %H:%M Uhr",
 "date_format_comment"      => "%d.%m.%Y",

@@ -26,7 +26,7 @@
         border-top: 0;
         position: relative;
     }
-    #main {
+    main {
         margin: 0 0 0 25px;
         padding: 190px 0 2em 0;
         width: 64.5%;
@@ -34,7 +34,7 @@
     }
 
     /* Clearfix-Hack */
-    #main:after {
+    main:after {
         content: "."; 
         display: block; 
         height: 0; 
@@ -42,11 +42,11 @@
         visibility: hidden;
     }
 
-    #main {display: inline-table;}
+    main {display: inline-table;}
 
     /* Hides from IE-mac \*/
-    * html #main {height: 1%;}
-    #main {display: block;}
+    * html main {height: 1%;}
+    main {display: block;}
     /* End hide from IE-mac */
 
     /* -- logo -- */
@@ -98,7 +98,7 @@
         .rss img { vertical-align: middle; border: 0; width: 94px; height: 15px; }
 
     /* -- footer -- */
-        #footer {
+        footer {
          clear: both;
          height: 60px;
          background: url(img/footer.png) no-repeat top center;
@@ -132,13 +132,13 @@
     /* -- pictures -- */
         .fl { float: left; margin: 0 1em 1em 0; }
         .fr { float: right; margin: 0 0 1em 1em; }
-        #main img, dl.img {
+        main img, dl.img {
             border: 1px solid #aaa;
             padding: 2px;
             max-width: 95%;
         }
         dl.img dt { padding: 0; margin: 0;}
-        #main dl.img dt img { margin: 0; padding: 0; max-width: 100%; border: none; }
+        main dl.img dt img { margin: 0; padding: 0; max-width: 100%; border: none; }
         dl.img dd { margin: 0; padding: 0 0.3em; font-size: 90%; }
         .teaser { clear: both; }
 

@@ -25,7 +25,7 @@ if($_GET['p']) { ?>
    	    <input id="class" type="text" size="20"></p>
    	 <p><?php echo $l['admin']['pic_alt'] ?><br />
    	    <input id="alt" type="text" size="20"></p>
-   	 <p><input type="submit" value="<?php echo $l['admin']['pic_insert'] ?>"></p>
+   	 <p><button value="<?php echo $l['admin']['pic_insert'] ?>"><?php echo htmlspecialchars($l['admin']['pic_insert']) ?></button></p>
    	 </form>
 <?php
 }

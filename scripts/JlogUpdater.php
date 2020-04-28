@@ -52,7 +52,7 @@ class JlogUpdater
             $html .= $class->getForm($l);
             $version = $this->versions[$version];
         }
-        $html .= '<p><input type="submit" name="update" value="' . $l['admin']['update_start'] . '" /></p>';
+        $html .= '<p><button name="update" value="' . $l['admin']['update_start'] . '">' . htmlspecialchars($l['admin']['update_start']) . '</button></p>';
         $html .= '</form>';
         return $html;
     }
