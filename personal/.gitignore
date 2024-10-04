@@ -1,0 +1,4 @@
+# Jlog generated artifacts
+*.inc
+*.inc.php
+*.xml*
