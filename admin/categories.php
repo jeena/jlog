@@ -10,6 +10,8 @@
  $c['meta']['title'] = $l['admin']['cat_title'];
  $c['main'] = output_admin_menu()."<h2>".$l['admin']['cat_title']."</h2>\n";
  
+ array_contains($get, array('action'));
+
 	switch ($get['action']) {
 	
 		case 'new':
@@ -25,7 +27,7 @@
 					$c['main'] .= $categories->output_form($form_input, 'new', $l['admin']['cat_new']);
 				}
 			}
-			else $c['main'] .= $categories->output_form(array('id' => NULL, 'name' => NULL, 'url' => NULL, 'description' => NULL), 'new', $l['admin']['cat_new']);
+			else $c['main'] .= $categories->output_form(array(), 'new', $l['admin']['cat_new']);
 			break;
 
 		case 'change':
@@ -76,4 +78,3 @@
 
 require(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'do_template.php');
 echo $body;
-?>

@@ -2,9 +2,9 @@
 // Please do not change the above line!
 
 "subnav_aboutpage"         => "Herzlich Willkommen",
-"subnav_current"           => "Aktuelle EintrÃ¤ge",
+"subnav_current"           => "Aktuelle Einträge",
 "subnav_info"              => "Informationen",
-"subnav_rss"               => "Aktuelles von dieser Seite per RSS Feed. Mehr darÃ¼ber erfahren Sie auf der Seite von <a href='http://uckan.info/texte/was-ist-rss/'>Alp UÃ§kan</a>.",
+"subnav_rss"               => "Aktuelles von dieser Seite per RSS Feed. Mehr darüber erfahren Sie auf der Seite von <a href='http://uckan.info/texte/was-ist-rss/'>Alp Uçkan</a>.",
 "subnav_copyright"         => "Alle Rechte vorbehalten.",
 "subnav_powered"           => "Powered by",
 
@@ -13,27 +13,27 @@
 "content_more_title"       => "Ganzen Eintrag lesen",
 "content_permalink"        => "permanenter Link zu diesem Eintrag",
 "content_posted"           => "Eingestellt am",
-"content_archive"          => "Ã„ltere WeblogeintrÃ¤ge gibt es im",
+"content_archive"          => "Ältere Weblogeinträge gibt es im",
 "content_archivelink"      => "Archiv",
-"content_archive_header"   => "Archivierte EintrÃ¤ge",
-"content_categories_header"=> "Kategorie",
+"content_archive_header"   => "Archivierte Einträge",
+"content_categories_header"=> "Kategorien",
 "content_skip"             => "Zum Hauptinhalt springen.",
-"content_choose_year"      => "Das Jahr wÃ¤hlen:",
+"content_choose_year"      => "Das Jahr wählen:",
 "content_search_header"    => "Suche auf der Webseite",
 "content_search"           => "suchen",
-"content_nothing_found"    => "Es wurden 0 Ergebnisse gefunden. VorschlÃ¤ge:<ul><li>ÃœberprÃ¼fen Sie die Schreibweise.</li><li>Suchen Sie mit anderen bzw. weniger SchlÃ¼sselwÃ¶rtern.</li><li>Entfernen Sie Frage- oder Pluszeichen.</li></ul>",
+"content_nothing_found"    => "Es wurden 0 Ergebnisse gefunden. Vorschläge:<ul><li>Überprüfen Sie die Schreibweise.</li><li>Suchen Sie mit anderen bzw. weniger Schlüsselwörtern.</li><li>Entfernen Sie Frage- oder Pluszeichen.</li></ul>",
 "content_search_topic"     => "Weblog durchsuchen",
 "content_from"             => "von",
 "content_comments"         => "Kommentare",
 "content_comment_plz"      => "kommentieren",
 "content_comments_title"   => "zu Kommentaren springen",
 "content_cat_linklist"     => "zugeordnete Kategorien",
-"content_cat_link"         => "Alle EintrÃ¤ge dieser Kategorie anzeigen",
+"content_cat_link"         => "Alle Einträge dieser Kategorie anzeigen",
 "content_categorieslist_h" => "Kategorien",
 "content_archive_preview"  => "Vorherige Seite",
-"content_archive_next"     => "NÃ¤chste Seite",
+"content_archive_next"     => "Nächste Seite",
 
-"meta_start"               => "ZurÃ¼ck zur Startseite",
+"meta_start"               => "Zurück zur Startseite",
 "meta_search"              => "Suche",
 "meta_copyright"           => "Urheberrecht",
 
@@ -74,27 +74,27 @@
 "comments_plz_format_txt"  => "Bitte gebe den zu formatierenden Text ein:",
 "comments_url_href"        => "Linkziel eingeben:",
 "comments_url_node"        => "Linktext eingeben:",
-"comments_closed"          => "Die Kommentare sind fÃ¼r diesen Eintrag geschlossen.",
+"comments_closed"          => "Die Kommentare sind für diesen Eintrag geschlossen.",
 "comments_teaser_closed"   => "(Kommentare geschlossen)",
 "pingback_topic"           => "Pingbacks",
 
 "db_error"                 => "Datenbankfehler",
-"plz_try_again"            => "Bitte versuchen Sie es spÃ¤ter noch einmal.",
+"plz_try_again"            => "Bitte versuchen Sie es später noch einmal.",
 
 "error"                    => "Fehler",
 "err404_topic"             => "Fehler 404 - Seite nicht gefunden",
-"err404_message"           => "Diese Seite existiert leider nicht. Versuchen Sie sie Ã¼ber die Suchfunktion zu finden.",
+"err404_message"           => "Diese Seite existiert leider nicht. Versuchen Sie sie über die Suchfunktion zu finden.",
 
 "language"                 => "de-de",
 "html_language"            => "de",
-"locale"                   => array('de_DE.UTF-8', 'de_DE.UTF-8@euro', 'de_DE'),
+"locale"                   => array('de_DE', 'de_DE@euro', 'de', 'deu_deu', 'german', 'ge', 'de-DE', 'de_DE.ISO8859-1', 'de_DE.ISO8859-15', 'de_DE.ISO_8859-15', 'de_DE.ISO_8859-15'),
 "date_format"              => "%d. %B %Y um %H:%M Uhr",
 "date_format_comment"      => "%d.%m.%Y",
 "date_format_subcurrent"   => "%d.%m.%Y",
 
 "index_topic"              => "Startseite",
 "bbtitle"                  => "BBcode nutzen",
-"bbxmp"                    => "<ul><li>ZeilenumbrÃ¼che werden automatisch erzeugt und man kann die Codeschnipsel auch kombinieren.</li>
+"bbxmp"                    => "<ul><li>Zeilenumbrüche werden automatisch erzeugt und man kann die Codeschnipsel auch kombinieren.</li>
                                <li>[url]<a href='http://example.com'>http://example.com</a>[/url]</li>
                                <li>[url=http://example.com]<a href='http://example.com'>Beispiellink</a>[/url]</li>
                                <li>[b]<strong>fett</strong>[/b]</li>
@@ -106,7 +106,7 @@
 // here you can change the months for the archive
 1                          => "Januar",
 2                          => "Februar",
-3                          => "MÃ¤rz",
+3                          => "März",
 4                          => "April",
 5                          => "Mai",
 6                          => "Juni",

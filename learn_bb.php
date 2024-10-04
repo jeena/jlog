@@ -1,6 +1,6 @@
 <?php
  require_once('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
- $version = $_GET['v'];
+ $version = $_GET['v'] ?? '';
 
 if($version == "small") {
 echo "
@@ -17,7 +17,7 @@ echo "
 }
 
 else {
- $c['title'] = $l['bbtitle'];
+ $c['meta']['title'] = $c['title'] = $l['bbtitle'];
  $c['main'] = $l['bbxmp'];
 
 require(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'do_template.php');

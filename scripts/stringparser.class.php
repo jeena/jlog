@@ -199,7 +199,7 @@ class StringParser {
 	 *
 	 * @access public
 	 */
-	function StringParser () {
+	function __construct () {
 	}
 	
 	/**
@@ -459,7 +459,7 @@ class StringParser {
 		// if yes, how should this be achieved? Another member of
 		// StringParser_Node?
 		$this->_setStatus (0);
-		$res = $this->_appendText ($this->_text{$topelem->occurredAt});
+		$res = $this->_appendText ($this->_text[$topelem->occurredAt]);
 		if (!$res) {
 			return false;
 		}
@@ -568,7 +568,7 @@ class StringParser {
 				return false;
 			}
 			if (!$res) {
-				$res = $this->_appendText ($this->_text{$this->_cpos});
+				$res = $this->_appendText ($this->_text[$this->_cpos]);
 				if (!$res) {
 					return false;
 				}
@@ -910,7 +910,7 @@ class StringParser_Node {
 	 *                        occurred at. If not determinable, it is -1.
 	 * @global __STRINGPARSER_NODE_ID
 	 */
-	function StringParser_Node ($occurredAt = -1) {
+	function __construct ($occurredAt = -1) {
 		$this->_id = $GLOBALS['__STRINGPARSER_NODE_ID']++;
 		$this->occurredAt = $occurredAt;
 	}
@@ -1248,7 +1248,8 @@ class StringParser_Node {
 	 * @param object $node The node to destroy
 	 * @return bool True on success, else false.
 	 */
-	function destroyNode (&$node) {
+	// FIXME static added due to Strict Standards
+	static function destroyNode (&$node) {
 		if ($node === null) {
 			return false;
 		}
@@ -1486,8 +1487,8 @@ class StringParser_Node_Text extends StringParser_Node {
 	 *                        occurred at. If not determinable, it is -1.
 	 * @see StringParser_Node_Text::content
 	 */
-	function StringParser_Node_Text ($content, $occurredAt = -1) {
-		parent::StringParser_Node ($occurredAt);
+	function __construct ($content, $occurredAt = -1) {
+		parent::__construct ($occurredAt);
 		$this->content = $content;
 	}
 	

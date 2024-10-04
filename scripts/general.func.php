@@ -2,8 +2,15 @@
 // get weblog link
 function blog($date, $url, $section = 'weblog') {
         if($section == 'weblog' OR $section == 'comment') {
-                $y = date("Y", $date);
-                $m = date("m", $date);
+		$matches = array();
+		if (preg_match('/^(\d{4})-(\d{2})/', $date, $matches)) {
+			$y = $matches[1];
+			$m = $matches[2];
+		}
+		else {
+			$y = date("Y", $date);
+			$m = date("m", $date);
+		}
                 if(JLOG_CLEAN_URL === true) $permalink = JLOG_PATH."/".$y."/".$m."/".$url;
                 else $permalink = JLOG_PATH."/log.php?y=".$y."&amp;m=".$m."&amp;url=".$url;
         }
@@ -27,12 +34,13 @@ function archive() {
 // get year links
 class Year_Links {
 
-        function Year_Links($get, $start, $page, $l, $cat="") {
+        function __construct($get, $start, $page, $l, $cat="") {
          $date  = getdate();
          $this->_now = $date['year'];
          $this->_start = $start;
          $this->_page = $page;
          $this->_l = $l;
+	 $this->cat = '';
          if(JLOG_CLEAN_URL === true) {
                 if($cat != "") {
                         list($tmp, $cat) = explode("=", $cat);
@@ -46,7 +54,7 @@ class Year_Links {
         }
 
         function get_linklist() {
-
+		$years_links = '';
          for($y = $this->_start; $y <= $this->_now; $y++) {
           if($y != $this->_start) $years_links .= " | ";
           if($y == $this->year) $years_links .= " <strong>".$y."</strong>";
@@ -60,6 +68,7 @@ class Year_Links {
         }
         
         function get_admin_linklist() {
+		$years_links = '';
         
          for($y = $this->_start; $y <= $this->_now; $y++) {
           if($y != $this->_start) $years_links .= " | ";
@@ -88,14 +97,11 @@ function strip($_data) {
 }
 // escape input for mysql
 function escape_for_mysql($_data) {
-        if (is_array($_data))
-		foreach($_data as $key => $val) $_data[$key] = escape_for_mysql($val);
-        else
-		$_data = mysql_real_escape_string($_data);
-		// uses last opened MySQL link implicitly
-		// assumption is valid because this function is never called
-		// before mysql_connect
+	global $connect;
 
+        if (is_array($_data)) foreach($_data as $key => $val) $_data[$key] = escape_for_mysql($val);
+	// FIXME deprecated
+        else $_data = $connect->real_escape_string($_data);
         return $_data;
 }
 // htmlspecialchars a whole array
@@ -140,7 +146,7 @@ global $l, $bbcode, $categories, $plugins;
  if(empty($data['date_url'])) $data['date_url'] = $data['date']; # fix for search.php
 
  $output = "\n <div class='teaser'>\n";
-  if($data['teaserpic'] != "") {
+  if(isset($data['teaserpic']) && $data['teaserpic'] != "") {
    list($img_width, $img_height, $img_type, $img_attr) = @getimagesize(JLOG_BASEPATH.'img'.DIRECTORY_SEPARATOR.'t_'.$data['teaserpic']);
    $output .= "   <a title='".$l['content_permalink']."' href='".blog($data['date_url'], $data['url'], $data['section'])."'><img class='teaserpic' src='".JLOG_PATH."/img/t_".$data['teaserpic']."' style='width: ".$img_width."px; height: ".$img_height."px;' alt='' /></a>\n";
   }
@@ -178,7 +184,11 @@ global $l, $bbcode, $categories, $plugins;
 
   if($section == 'weblog' OR ($cat = $categories->output_assigned_links($data['id'])) != "") {
    $output .= " <p class='date meta'>";
-   if($section == 'weblog') $output .= $l['content_posted']." ".strftime(JLOG_DATE, $data['date']);
+   if($section == 'weblog') {
+   	$output .= $l['content_posted']." ";
+	#$output .= is_int($data['date']) ? strftime(JLOG_DATE, $data['date']) : $data['date'];
+	$output .= strftime(JLOG_DATE, $data['date']);
+  }
    $output .= $categories->output_assigned_links($data['id'])."</p>";
   }
 
@@ -186,8 +196,10 @@ global $l, $bbcode, $categories, $plugins;
   $path_parts = pathinfo($_SERVER['SCRIPT_NAME']);
 
         if($data['section'] == 'weblog' AND $path_parts['basename'] != 'log.php') {
-         if(isset($cc[$data['id']]) AND $cc[$data['id']] != 0) $tmp_comments = " <a title='".$l['content_comments_title']."' href='".blog($data['date'], $data['url'])."#comments'>".$l['content_comments']." (".$cc[$data['id']].")</a>";
-         elseif($data['comments'] === '0') $tmp_comments = $l['comments_teaser_closed'];
+         if(isset($cc[$data['id']]) AND $cc[$data['id']] != 0)
+	 	$tmp_comments = " <a title='".$l['content_comments_title']."' href='".blog($data['date'], $data['url'])."#comments'>".$l['content_comments']." (".$cc[$data['id']].")</a>";
+         elseif(isset($data['comments']) && $data['comments'] === '0')
+	 	$tmp_comments = $l['comments_teaser_closed'];
          else $tmp_comments = "<a href='".blog($data['date'], $data['url'])."#comments'>".$l['content_comment_plz']."</a>";
     $output .="  <p class='meta'>".$tmp_comments."</p>";
         }
@@ -295,7 +307,7 @@ function my_serialize_cfg($arg) {
 class JLOG_Tags {
   var $tree = array();
 
-  function JLOG_Tags($body) {
+  function __construct($body) {
       preg_match_all('/<jlog:([a-z]\w+)\s?([^>]*)\/?>(<\/(\1):(\2)>)?/ims', $body, $this->tree);
   }
 
@@ -319,6 +331,16 @@ class JLOG_Tags {
 
 // security functions
 function hashPassword($pw) {
-	// TODO: see iusses/2 for details
+	// TODO: see issues/2 for details
 	return md5($pw);
+}
+
+/**
+ *
+ */
+function array_contains(&$arr, $fields) {
+	foreach ($fields as $key) {
+		if (!isset($arr[$key]))
+			$arr[$key] = '';
+	}
 }

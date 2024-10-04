@@ -20,7 +20,7 @@
  * $HeadURL: http://jeenaparadies.net/svn/jlog/trunk/index.php $
  * $Rev: 1777 $
  * $Author: robertb $
- * $Date: 2009-01-04 18:22:36 +0100 (Sön, 04 Jan 2009) $
+ * $Date: 2009-01-04 18:22:36 +0100 (So, 04. Jan 2009) $
  */
 
  if(!file_exists(dirname( __FILE__ ).DIRECTORY_SEPARATOR.'personal'.DIRECTORY_SEPARATOR.'settings.inc.php')) {

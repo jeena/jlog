@@ -1,7 +1,7 @@
 ###  Weblogsystem Jlog
 ###  Programmiert von Jeena Paradies, Dennis Riehle, Robert Bienert
 ###  Mailingliste: <jlog@googlegroups.com>
-###  Projektseite: <http://jeenaparadies.net/projects/jlog/>
+###  Projektseite: <https://github.com/jeena/jlog>
 ###  Hilfe zur Installation:
 ###  <http://jeenaparadies.net/projects/jlog/wiki/installation/basic-1.0>
 

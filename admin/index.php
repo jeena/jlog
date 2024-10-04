@@ -5,11 +5,12 @@
  require(JLOG_BASEPATH.'admin'.DIRECTORY_SEPARATOR.'blog.func.php');
 
  $get = strip($_GET);
- $yl = new Year_Links($get['y'], JLOG_START_YEAR, add_session_id_to_url(JLOG_PATH."/admin/"), $l['admin']);
+ $yl = new Year_Links($get['y'] ?? null, JLOG_START_YEAR, add_session_id_to_url(JLOG_PATH."/admin/"), $l['admin']);
 
     if(isset($get['show']) AND $get['show'] == 'page') {
         $show_section = "<a href='".add_session_id_to_url("?show=weblog")."'>".$l['admin']['section_weblog']."</a> | <strong>".$l['admin']['section_page']."</strong>";
         $where = "section = 'page'";
+	$year_menu = '';
     }
     else {
         $show_section = "<strong>".$l['admin']['section_weblog']."</strong> | <a href='".add_session_id_to_url("?show=page")."'>".$l['admin']['section_page']."</a>";
@@ -22,6 +23,8 @@
  
 
  $c['meta']['title'] = $l['admin']['index_headline'];
+
+ if (!isset($c['main'])) $c['main'] = '';
 
  $c['main'] .= output_admin_menu()." 
  <h2>".$l['admin']['admin_headline']."</h2>

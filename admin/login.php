@@ -6,11 +6,12 @@
 ###
 ### adapted for Jlog by Jeena Paradies
 
-ini_set("session.use_trans_sid", false);
+ini_set('session.use_trans_sid', false);
 
-define("JLOG_ADMIN", true);
-define("JLOG_LOGIN", true);
+define('JLOG_ADMIN', true);
+define('JLOG_LOGIN', true);
 require_once('..'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
+require_once('..'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'proto.inc.php');
 require(JLOG_BASEPATH.'admin'.DIRECTORY_SEPARATOR.'blog.func.php');
 
 $false_password = "";
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' AND $dispatch_login) {
 		if ($path == $url) $url = $path . 'new.php';		
 		if (!empty($url)) $path = $url;
 		
-		header('Location: ' . add_session_id_to_url("http://".$hostname.$path));
+		header('Location: ' . add_session_id_to_url(proto().'://'.$hostname.$path));
 		exit;
 	}
 	else {
@@ -55,15 +56,16 @@ else {
 }
 
 $c['meta']['title'] = $l['admin']['login_headline'];
+$btnValue = htmlspecialchars($l['admin']['login_send']);
 $c['main'] = '
   <h2>'.$l['admin']['login_headline'].'</h2>
   ' . $false_password . '
   <form action="login.php" method="post" accept-charset="UTF-8">
    <p><label for="password">' . $l['admin']['login_password'] . '</label>
-      <input class="userdata" id="password" type="password" name="password" />
+      <input class="userdata" id="password" type="password" name="password" autocomplete="off" spellcheck="false" writingsuggestions="false"/>
       <input style="display: none;" name="username" type="text" value="do-not-change" /></p>
    <p><input type="hidden" name="url" value="' . htmlspecialchars(!empty($get['url']) ? $get['url'] : '') . '" />
-      <button value="' . $l['admin']['login_send'] . '">' . htmlspecialchars($l['admin']['login_send']) . '</button></p>
+      <button value="' . $btnValue . '">' . $btnValue . '</button></p>
   </form>
 ';
 
@@ -73,4 +75,3 @@ $c["main"] = $plugins->callHook('loginForm', $c["main"]);
 
 require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'do_template.php');
 echo $body;
-

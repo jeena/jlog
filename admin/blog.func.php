@@ -2,6 +2,8 @@
 // Untersuchen ob alles eingegeben wurde
 function check_input($form_input) {
 global $l;
+    $errors = array();
+
     if(strlen(trim($form_input['topic'])) < 1) $errors[] = $l['admin']['no_headline'];
 
     // checking URL
@@ -29,8 +31,8 @@ global $l;
         }
         else {
             $sql = "SELECT id FROM ".JLOG_DB_CONTENT." WHERE
-                        YEAR(date)  = ".date("Y", $f['date'])." AND
-                        MONTH(date) = ".date("m", $f['date'])." AND
+                        YEAR(date)  = ".date("Y", strtotime($f['date']))." AND
+                        MONTH(date) = ".date("m", strtotime($f['date']))." AND
                         url         = '".$f['url']."';";
         }
     
@@ -54,7 +56,11 @@ global $l;
       	$errors[] = $l['admin']['false_teaserpic'];
       }
 
-     if($form_input['teaserpiconblog'] == "1" AND strlen(trim($form_input['teaserpic'])) == 0) $errors[] = $l['admin']['no_teaserpic_uploaded'];
+     if(isset($form_input['teaserpiconblog']) && $form_input['teaserpiconblog'] == "1"
+     	AND strlen(trim($form_input['teaserpic'])) == 0)
+     {
+     	$errors[] = $l['admin']['no_teaserpic_uploaded'];
+     }
     
     if(strlen(trim($form_input['teaser'])) < 1) $errors[] = $l['admin']['no_teaser'];
     if(strlen(trim($form_input['content'])) < 1) $errors[] = $l['admin']['no_content'];
@@ -64,17 +70,31 @@ global $l;
 
 // Eingabeformular
 function form_output($form_input) {
- $form_input = array_htmlspecialchars($form_input);
-global $l, $categories, $plugins;
+	$form_input = array_htmlspecialchars($form_input);
+	global $l, $categories, $plugins;
 
-     if($form_input['teaserpiconblog'] == 1) $form_input['teaserpiconblog_check'] = "checked='checked'";
-     if($form_input['section'] == 'page') $page = " checked='checked'";
-     else $weblog = " checked='checked'";
-     if($form_input['allowcomments'] === '0') $form_input['comments_check'] = "checked='checked'";
-     if($form_input['allowpingback'] === '0') $form_input['pingback_check'] = "checked='checked'";
+	if (isset($form_input['teaserpiconblog']) && $form_input['teaserpiconblog'] == 1)
+		$form_input['teaserpiconblog_check'] = "checked='checked'";
+	if (isset($form_input['section']) && $form_input['section'] == 'page') {
+		$page = " checked='checked'";
+		$weblog = '';
+	}
+	else {
+		$page = '';
+		$weblog = " checked='checked'";
+	}
+	if (isset($form_input['allowcomments']) && $form_input['allowcomments'] === '0')
+		$form_input['comments_check'] = "checked='checked'";
+	if (isset($form_input['allowpingback']) && $form_input['allowpingback'] === '0')
+		$form_input['pingback_check'] = "checked='checked'";
+
+	array_contains($form_input,
+		array('topic', 'url', 'teaser', 'keywords', 'categories',
+			'teaserpic', 'teaserpiconblog_check', 'comments_check',
+			'pingback_check', 'content', 'id', 'date'));
 
  $o = "
-   <form method='post' id='entryform' action='".$_SERVER['SCRIPT_NAME']."' accept-charset='UTF-8'>
+   <form method='post' id='entryform' action='".htmlspecialchars($_SERVER['SCRIPT_NAME'])."' accept-charset='UTF-8'>
     <fieldset><legend>".$l['admin']['metadata']."</legend>
      <p><label>".$l['admin']['section']."</label><br />
         <input id='weblog' name='section' type='radio' value='weblog'".$weblog." /><label for='weblog' class='nobreak'>".$l['admin']['section_weblog']."</label>&nbsp;
@@ -141,16 +161,22 @@ global $l, $bbcode, $categories;
 
     // get data from _post
     if(empty($form_input['date'])) $form_input['date'] = time();
-    $output =  "<h2 class='preview'>".$l['admin']['preview']."</h2>\n<div class='preview'>".do_entry($form_input, NULL, $section)."</div>";
+    $output =  "<h2 class='preview'>".$l['admin']['preview']."</h2>\n<div class='preview'>".do_entry($form_input, NULL, $form_input['section'])."</div>";
 
  return $output;
 }
 
 function insert_blog($form_input) {
-global $l, $plugins;
+global $l, $plugins, $connect;
 
-    if($form_input['allowcomments'] != "0") $form_input['allowcomments'] = "1";
-    if($form_input['allowpingback'] != "0") $form_input['allowpingback'] = "1";
+    $form_input['allowcomments'] =
+    	isset($form_input['allowcomments']) && $form_input['allowcomments'] == "0" ?
+	"0" : "1";
+    $form_input['allowpingback'] =
+	    isset($form_input['allowpingback']) && $form_input['allowpingback'] == "0" ?
+	    "0" : "1";
+
+    array_contains($form_input, array('teaserpiconblog'));
 
      $form_input = escape_for_mysql($form_input);
      $sql = "INSERT INTO ".JLOG_DB_CONTENT." (
@@ -179,7 +205,7 @@ global $l, $plugins;
                 '".$form_input['allowpingback']."'  );";
 
     $writeblog = new Query($sql);
-    $id = mysql_insert_id();
+    $id = $connect->insert_id;
      if($writeblog->error()) {
         echo "<pre>\n";
         echo $writeblog->getError();
@@ -190,6 +216,7 @@ global $l, $plugins;
     if(is_array($form_input['categories']) AND $form_input['categories']['0'] != 'no_categories') {
     $sql = "INSERT INTO ".JLOG_DB_CATASSIGN." ( cat_id, content_id )
                 VALUES \n";
+    $i = 0;
     foreach($form_input['categories'] AS $category) {
             if(++$i > 1) $sql .= ",\n";
             $sql .= "( '".$category."', '".$id."')";
@@ -236,10 +263,15 @@ global $l, $categories;
 function update_blog($form_input) {
 global $l, $plugins;
 
-    if($form_input['allowcomments'] != "0") $form_input['allowcomments'] = "1";
-    if($form_input['allowpingback'] != "0") $form_input['allowpingback'] = "1";
+    if(!isset($form_input['allowcomments']) || $form_input['allowcomments'] != "0")
+    	$form_input['allowcomments'] = "1";
+    if(!isset($form_input['allowpingback']) || $form_input['allowpingback'] != "0")
+    	$form_input['allowpingback'] = "1";
 
      $form_input = escape_for_mysql($form_input);
+     array_contains($form_input,
+     	['teaserpiconblog', 'allowcomments', 'allowpingback']);
+
      $sql = "UPDATE ".JLOG_DB_CONTENT." SET
                     topic              = '".$form_input['topic']."',
                     url                 = '".$form_input['url']."',
@@ -275,6 +307,7 @@ global $l, $plugins;
     if(is_array($form_input['categories']) AND $form_input['categories']['0'] != 'no_categories') {
         $sql = "INSERT INTO ".JLOG_DB_CATASSIGN." ( cat_id, content_id )
                     VALUES \n";
+	$i = 0;
         foreach($form_input['categories'] AS $category) {
             if(++$i > 1) $sql .= ",\n";
             $sql .= "( '".$category."', '".$form_input['id']."')";

@@ -105,6 +105,7 @@ $file['sub'] = JLOG_BASEPATH.'personal'.DIRECTORY_SEPARATOR.'subcurrent.inc';
    }
 
 $i = 0;
+$errors = array();
 
     foreach($file AS $d => $filename) {
         if (is_writable($filename)) {

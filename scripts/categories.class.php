@@ -6,7 +6,7 @@ class Categories {
     var $categories = array();
     var $l = array();
 
-    function Categories($l) {
+    function __construct($l) {
     
         $this->l = $l;
     
@@ -66,8 +66,9 @@ class Categories {
                         ."       <option value='no_categories'>".$this->l['admin']['no_categories']."</option>\n";
     
            foreach($this->categories AS $id => $data) {
+		$selected = '';
                 if(is_array($catassign)) if(in_array($id, $catassign)) $selected = " selected='selected'";
-                else unset($selected);
+                else $selected = '';
                 $output .= "       <option".$selected." value='".$id."'>".$data['name']."</option>\n";
             }
     
@@ -79,6 +80,8 @@ class Categories {
 
     function output_rss($id) {
         $ids = $this->get_assigned_categories($id);
+	$output = '';
+
         if(is_array($ids)) {
             foreach($ids AS $i) {
                 $output .= "        <category>".$this->get($i, 'name')."</category>\n";
@@ -89,12 +92,13 @@ class Categories {
 
     function output_assigned_links($ids) {
         if(!is_array($ids)) $ids = $this->get_assigned_categories($ids);
+	$output = '';
         if(is_array($ids)) {
             foreach($ids as $id) {
                 $output .= $this->link($id)." ";
             }
         }
-        if(isset($output)) return " <span title='".$this->l['content_cat_linklist']."' class='catlinklist'>&raquo; ".$output."</span>";
+        if(strlen($output) > 0) return " <span title='".$this->l['content_cat_linklist']."' class='catlinklist'>&raquo; ".$output."</span>";
     }
     
     function output_whole_list($_before = " <ul id='categorieslist'>\n", $_after = " </ul>\n", $before = "  <li>", $after = "</li>\n") {
@@ -137,7 +141,9 @@ class Categories {
         return $output;
     }
     
-    function output_form($form_input = "", $action = 'new', $legend) {
+    function output_form($form_input = array(), $action = 'new', $legend) {
+    	array_contains($form_input, ['name', 'url', 'id', 'description']);
+
         $output = "
         <form id='entryform' action='?action=".$action."' method='POST'>
          <fieldset><legend>".$legend."</legend>
@@ -247,4 +253,3 @@ class Categories {
         return $errors;
     }
 }
-?>

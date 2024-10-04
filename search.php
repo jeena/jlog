@@ -5,16 +5,17 @@
  $c['meta']['title'] = $l['content_search_header'];
  $c['main'] = "<h2 class='search'>".$l['content_search_header']."</h2>";
 
- $searchstring = strip($_GET['q']);
+ $searchstring = isset($_GET['q']) ? strip($_GET['q']) : '';
+ $btnValue = htmlspecialchars($l['content_search']);
 
     $c['main'] .= '     <form id="searchform" action="'.JLOG_PATH.'/search.php" accept-charset="UTF-8">
       <p><input class="userdata" type="text" name="q" size="30" value="'.htmlspecialchars($searchstring, ENT_QUOTES).'" />
-         <button class="send" value="'.$l['content_search'].'">'.htmlspecialchars($l['content_search']).'</button></p>
+         <button class="send" value="'.$btnValue.'">'.$btnValue.'</button></p>
      </form>
      <script type="text/javascript">jlog_searchpage = true;</script>
 ';
 
-if(!empty($searchstring)) {
+if(strlen($searchstring) > 0) {
 
  $sql_searchstring = escape_for_mysql($searchstring);
 

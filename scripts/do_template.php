@@ -54,7 +54,7 @@ if(defined('JLOG_ADMIN')) {
 
 $_search = array (
         "<jlog:language />",
-        "<jlog:html-language />",
+	"<jlog:html-language />",
         "<jlog:website />",
         "<jlog:title />",
         "<jlog:aditional-header />",
@@ -82,7 +82,7 @@ $_search = array (
 
 $_replace = array (
         $l['language'],
-        $l['html_language'],
+	$l['html_language'],
         htmlspecialchars(JLOG_WEBSITE, ENT_QUOTES),
         htmlspecialchars($c['meta']['title']),
    		$c['meta']['aditionalheader'],

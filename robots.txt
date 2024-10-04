@@ -1,0 +1,18 @@
+# Sperre bestimmte Bots
+User-agent: GPTBot
+Disallow: /
+
+# Sperre einige Jlog-Verzeichnisse + Datenschutzeinstellungen
+User-Agent: *
+Disallow: /admin
+Disallow: /lang
+Disallow: /plugins
+Disallow: /scripts
+
+# Sperre bestimmte Bilder aus
+User-agent: *
+Disallow: /img/t_*
+Disallow: /img/JLOG_*
+
+# Fuer weiteres siehe auch die .htaccess bzw. entsprechende Dateien
+# in Unterverzeichnissen.

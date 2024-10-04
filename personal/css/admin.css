@@ -26,3 +26,6 @@
 
 #admin .hide { display: none; } 
 #admin-menu { position: relative; z-index: 2; }
+#admin div.center {
+	overflow-x: scroll
+}

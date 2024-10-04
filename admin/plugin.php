@@ -12,18 +12,19 @@
         $handle = "";
         $file = "";
         $plugindirectory = JLOG_BASEPATH.DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR;
+	$availablePlugins = '';
 
         if(is_dir($plugindirectory)) {
             $handle = opendir($plugindirectory);
             while( false !== ( $file = readdir ($handle) ) ) {
                 if(substr($file, -10) === '.jplug.php') {
-                    $pluginName = substr($file, 0, -10);
+                    $pluginName = htmlspecialchars(substr($file, 0, -10));
                     $availablePlugins .= "  <li><a href='".add_session_id_to_url("?jplug=".$pluginName)."'>".$pluginName."</a></li>\n";
                 }
             }
             closedir($handle);
 
-            if(!empty($availablePlugins)) {
+            if(strlen($availablePlugins) > 0) {
                 $availablePlugins = " <ul>\n".$availablePlugins." </ul>\n";
                 $title = $l['admin']['plugins_headline'];
             }
@@ -50,4 +51,3 @@
 
 require(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'do_template.php');
 echo $body;
-?>

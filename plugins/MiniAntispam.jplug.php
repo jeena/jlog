@@ -8,7 +8,7 @@
 
 class MiniAntispam extends JlogPlugin {
 
-    function hook_commentForm($form) {
+    function hook_commentForm($form, $cf) {
         $uid = $this->generate_uid();
         $uid_inputs  = "\n     ".'<input type="hidden" name="privatkey" value="'.$uid.'" />';
         $uid_inputs .= "\n     ".'<input type="text" style="display: none;" name="publickey" value="'.$uid.'" />';
@@ -29,7 +29,7 @@ class MiniAntispam extends JlogPlugin {
         $uid = '';
         mt_srand((double)microtime()*1000000);
 
-        for($i=0; $i < $len; $i++) $uid .= $acceptedChars{ mt_rand(0, $maxchar) };
+        for($i=0; $i < $len; $i++) $uid .= $acceptedChars[mt_rand(0, $maxchar)];
 
         return $uid;
     }

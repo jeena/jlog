@@ -2,13 +2,19 @@
  require_once('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
 
  $get = strip($_GET);
- if(isset($get['cat'])) $cat_y_link = "cat=".$get['cat'];
+ $cat_y_link = isset($get['cat']) ? "cat=".$get['cat'] : '';
+ if (!isset($get['y'])) $get['y'] = null;
  $yl = new Year_Links($get['y'], JLOG_START_YEAR, archive(), $l, $cat_y_link);
  if(isset($get['show'])) $p = (int) escape_for_mysql($get['show']);
  else $p = 0;
  $amount = 5;
 
  $c['meta']['robots']       = "noindex, follow";
+
+if (!isset($c['main'])) $c['main'] = '';
+if (!isset($c['meta'])) $c['meta'] = array();
+if (!isset($c['meta']['aditionalheader'])) $c['meta']['aditionalheader'] = '';
+$count = 0;
     
     if(isset($get['cat'])) {
 
@@ -64,7 +70,8 @@
         $count = $_count['count'];
     }
     else {
-        if(!empty($get['m'])) $where_month = " AND MONTH(date) = '".escape_for_mysql($get['m'])."'";
+	$where_month = empty($get['m']) ? '' : " AND MONTH(date) = '".escape_for_mysql($get['m'])."'";
+	if (!isset($where_from)) $where_from = '';
         $c['meta']['title'] = $l['content_archive_header'];
         $c['main'] = "<h2>".$c['meta']['title']." ".$yl->get_selected_year()."</h2>";
 

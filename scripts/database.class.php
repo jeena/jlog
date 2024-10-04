@@ -2,20 +2,24 @@
 // call database class
     class Query {
     // Variablen
+     var $_conn;
      var $_sql = "";
      var $_result = 0;
      var $_errno = 0;
      var $_error = "";
 
        //Konstruktor
-        function Query($sql)
+        function __construct($sql)
         {
+		global $connect;
+     		$this->_conn = $connect;
+
         // Query in der Klasse speichern
         	$this->_sql = trim($sql);
-        	$this->_result = mysql_query($this->_sql);
+        	$this->_result = $this->_conn->query($this->_sql);
           if(!$this->_result) {
-            $this->_errno = mysql_errno();
-            $this->_error = mysql_error();
+            $this->_errno = $this->_conn->errno;
+            $this->_error = $this->_conn->error;
           }       
         }
 
@@ -50,7 +54,7 @@
             echo "An Error has occurred, please check your MySQL-Query.";
             $return = null;
          } 
-         else $return = mysql_fetch_assoc($this->_result);
+         else $return = $this->_result->fetch_assoc();
          return $return;
         }
 
@@ -58,14 +62,13 @@
          if($this->error()) {
             $return = -1;
          }
-         else $return = mysql_num_rows($this->_result);
+         else $return = $this->_result->num_rows;
          return $return;
         }
         
         function free() {
         // Speicher freimachen
-         mysql_free_result($this->_result);
+         #mysql_free_result($this->_result);
         }
 
     }
-?>

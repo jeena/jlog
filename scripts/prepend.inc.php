@@ -20,7 +20,7 @@
  * $HeadURL: http://jeenaparadies.net/svn/jlog/trunk/scripts/prepend.inc.php $
  * $Rev: 1739 $
  * $Author: driehle $
- * $Date: 2008-09-03 15:53:30 +0200 (Ons, 03 Sep 2008) $
+ * $Date: 2008-09-03 15:53:30 +0200 (Mi, 03. Sep 2008) $
  */
 
 // load settings and version information
@@ -51,6 +51,10 @@ define("JLOG_DB_CATASSIGN", JLOG_DB_PREFIX."catassign");
 define("JLOG_DB_CATEGORIES", JLOG_DB_PREFIX."categories");
 define("JLOG_DB_ATTRIBUTES", JLOG_DB_PREFIX."attributes");
 
+if (!function_exists('get_magic_quotes_gpc')) {
+	function get_magic_quotes_gpc() { return false; }
+}
+
 // we need these files on every page
 require_once(JLOG_BASEPATH.'lang'.DIRECTORY_SEPARATOR.'lang.'.JLOG_LANGUAGE.'.inc.php');
 require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'database.class.php');
@@ -62,20 +66,21 @@ require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'comments.php');
 if(defined('JLOG_ADMIN')) require_once(JLOG_BASEPATH.'lang'.DIRECTORY_SEPARATOR.'lang-admin.'.JLOG_LANGUAGE.'.inc.php');
 
 // connect to database
-$connect = @mysql_connect(JLOG_DB_URL, JLOG_DB_USER, JLOG_DB_PWD);
+$connect = new mysqli(JLOG_DB_URL, JLOG_DB_USER, JLOG_DB_PWD, JLOG_DB);
 if ($connect == FALSE) {
   mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysql_error());
   die("<strong>".$l['db_error']."</strong><br />".$l['plz_try_again'].".");
 }
 // select our database
-$select = @mysql_select_db(JLOG_DB);
+#$select = @mysql_select_db(JLOG_DB);
 if ($connect == FALSE) {
   mail(JLOG_EMAIL, $l['admin']['e_db'], $l['admin']['e_db_is']."\n".mysql_error());
   die("<strong>".$l['db_error']."</strong><br />".$l['plz_try_again'].".");
 }
 // do some settings
-@mysql_query("SET NAMES utf8");
-@mysql_query("SET sql_mode=''");
+$connect->set_charset('utf8');
+$connect->query("SET NAMES utf8");
+$connect->query("SET sql_mode=''");
 
 // some more code that needs to run for every page - however, this
 // code requires an established connection to the database

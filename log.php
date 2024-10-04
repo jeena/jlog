@@ -18,8 +18,8 @@ if(!empty($sql_get['y']) AND !empty($sql_get['m']) AND !empty($sql_get['url'])) 
                 content, comments, allowpingback, section
             FROM ".JLOG_DB_CONTENT."
             WHERE 
-                YEAR(date)      = ".$sql_get['y']." AND
-                MONTH(date)     = ".$sql_get['m']." AND
+                YEAR(date)      = '".$sql_get['y']."' AND
+                MONTH(date)     = '".$sql_get['m']."' AND
                 url                     = '".$sql_get['url']."' AND
                 section         = 'weblog'
             LIMIT 1";
@@ -86,7 +86,11 @@ if(isset($com_form['form_submitted']) AND $com_form['form_submitted'] === $l['co
     $countComments = 0;
     while($commentsArray[] = $comments->fetch());
     
-    foreach($commentsArray as $tmp_comment) if($tmp_comment['type'] != 'pingback') ++$countComments;
+    foreach($commentsArray as $tmp_comment) {
+    	if(!(isset($tmp_comment['type']) && $tmp_comment['type'] == 'pingback')) {
+		++$countComments;
+	}
+    }
 
     $preview = "";
     if(isset($error)) $preview .= error_output($error);
@@ -119,7 +123,11 @@ elseif(isset($com_form['form_submitted']) AND $com_form['form_submitted'] == $l[
         
         ### Plugin Hook
         $com_form = $plugins->callHook('newComment', $com_form, $blogentry);
-        
+
+	if (!isset($com_form['sid'])) {
+		$c['form_content'] .= '<p class="error">Der Kommentar wurde nicht gespeichert.</p>';
+	}
+	else {
         $com = escape_for_mysql($com_form);
         if(!isset($com['mail_by_comment'])) $com['mail_by_comment'] = "";
         
@@ -149,7 +157,7 @@ elseif(isset($com_form['form_submitted']) AND $com_form['form_submitted'] == $l[
                 )"; 
 
         $newcomment = new Query($sql);
-        $cid = mysql_insert_id();
+        $cid = $connect->insert_id;
         if($newcomment->error()) {
             if($newcomment->getErrno() == 1062) {
                 $errors[] = $l['comments_duplicate'];
@@ -224,11 +232,13 @@ elseif(isset($com_form['form_submitted']) AND $com_form['form_submitted'] == $l[
                     $mail->setText($text . $data['email']);
                     $mail = $plugins->callHook('commentorMail', $mail, $blogentry);
                     // send mail
-                    $mail->send();
+		    # XXX bugfix
+                    $mail->send($data['email']);
                 }
             }
             $c['form_content'] .= "<p id='entryform'>".$l['comments_thx']."</p>".com_javascript_variables();
         }
+    }
     }
 }
 

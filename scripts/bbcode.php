@@ -67,14 +67,17 @@ function do_bbcode_img ($action, $attributes, $content, $params, $node_object) {
     }
 		$title = empty($attributes["title"]) ? "" : " title='".htmlspecialchars($attributes["title"])."'";
 
+    $class = '';
+
     if (isset($attributes['class']) AND isset($attributes['caption'])) $class_caption = " class='img ".htmlspecialchars($attributes['class'])."'";
     elseif (isset($attributes['class'])) $class = " class='".htmlspecialchars($attributes['class'])."'";
     elseif (isset($attributes['caption'])) $class_caption = " class='img'"; // bugfix by Sebastian Kochendörfer #215
 
-    if (strpos($content, "http://") === 0) return "<img src='".htmlspecialchars($content)."'".$class." alt='".htmlspecialchars($attributes['alt'])."'".$title." />";
+    if (strpos($content, 'http://') === 0 || strpos($content, 'https://') === 0)
+    	return "<img src='".htmlspecialchars($content)."'".$class." alt='".htmlspecialchars($attributes['alt'] ?? '')."'".$title." />";
     else {
         list($img_width, $img_height, $img_type, $img_attr) = @getimagesize(JLOG_BASEPATH.'/img'.DIRECTORY_SEPARATOR.htmlspecialchars($content));
-        $img = "<img src='".JLOG_PATH."/img/".htmlspecialchars($content)."'".$class." alt='".htmlspecialchars($attributes['alt'])."' style='width: ".$img_width."px;'".$title." />";
+        $img = "<img src='".JLOG_PATH."/img/".htmlspecialchars($content)."'".$class." alt='".htmlspecialchars($attributes['alt'] ?? '')."' style='width: ".$img_width."px;'".$title." />";
     }
 
      if(isset($attributes['caption'])) {

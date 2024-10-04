@@ -11,6 +11,8 @@
  $c['main'] = output_admin_menu();
  $c['main'] .= "<h2>".$l['admin']['change_headline']."</h2>";
 
+array_contains($get, array('action'));
+
 if($get['action'] == "trash" AND $post['trash'] == $l['admin']['yes']) {
  $c['main'] .= "<p>".trash_blog($get['id'])."</p>";
  include_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'update.php');
@@ -31,13 +33,17 @@ else {
 	if(isset($get['id'])) $form_input = get_blog($get['id']);
 	elseif (isset($_POST)) $form_input = $post;
 	else $c['main'] .= $l['admin']['error_occurred'];
-	
-	if($post['form_submitted'] == $l['admin']['preview']) {
+
+	$formSubmitted = array_key_exists('form_submitted', $post);
+
+	if($formSubmitted && $post['form_submitted'] == $l['admin']['preview'])
+	{
 	 $c['main'] .= error_output(check_input($form_input));
 	 $c['main'] .= preview_output($form_input);
 	 $c['main'] .= form_output($form_input);
 	}
-	elseif($post['form_submitted'] == $l['admin']['publish']) {
+	elseif($formSubmitted && $post['form_submitted'] == $l['admin']['publish'])
+	{
 		// Put data to database
 		if(!check_input($form_input)) {
 		 $c['main'] .= "<p>".update_blog($form_input)."</p>";
@@ -57,4 +63,3 @@ else {
 
 require(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'do_template.php');
 echo $body;
-?>

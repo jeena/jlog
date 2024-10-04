@@ -20,7 +20,7 @@
  * $HeadURL: http://jeenaparadies.net/svn/jlog/trunk/scripts/settings.class.php $
  * $Rev: 1768 $
  * $Author: driehle $
- * $Date: 2008-09-30 21:43:16 +0200 (Tis, 30 Sep 2008) $
+ * $Date: 2008-09-30 21:43:16 +0200 (Di, 30. Sep 2008) $
  */
 
 /**
@@ -62,7 +62,7 @@ class Settings {
     * @param array $l
     * @return void
     */
-    function Settings($l) {
+    function __construct($l) {
         // get the language array $l and put it into the class
         $this->l = $l;
     }
@@ -278,9 +278,16 @@ class Settings {
     
         $data = array_htmlspecialchars($this->d);
     
-        if(isset($data['jlog_clean_url']) AND ($data['jlog_clean_url'] === 'true' OR $data['jlog_clean_url'] === '1'))
-        $d['clean_url_yes'] = " checked='checked'";
-        else $d['clean_url_no'] = " checked='checked'";
+        if (isset($data['jlog_clean_url']) AND
+		($data['jlog_clean_url'] === 'true' OR $data['jlog_clean_url'] === '1'))
+	{
+        	$d['clean_url_yes'] = " checked='checked'";
+		$d['clean_url_no'] = '';
+	}
+        else {
+        	$d['clean_url_yes'] = '';
+		$d['clean_url_no'] = " checked='checked'";
+	}
     
         if(isset($data['jlog_info_by_comment'])) $d['info_by_comment'] = " checked='checked'";
         else $d['info_by_comment'] = "";

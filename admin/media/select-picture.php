@@ -3,14 +3,14 @@
  define("JLOG_ADMIN", true);
  require_once('..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title><?php echo $l['admin']['pic_choose_old'] ?></title>
+ <meta charset="UTF-8" />
  <link rel="stylesheet" href="<?php echo JLOG_PATH ?>/personal/css/popup.css" type="text/css" media="screen" />
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  <script type="text/javascript" src="<?php echo JLOG_PATH ?>/scripts/javascripts.js"></script>
+ <meta name="viewport" content="width=device-width,initial-scale=1"/>
 </head>
 <body>
 <h1><?php echo $l['admin']['pic_choose_old'] ?></h1> 
@@ -18,14 +18,17 @@
 // Bildernamen für blog in ein Array schreiben
 $dir = JLOG_BASEPATH.'img'.DIRECTORY_SEPARATOR;
 
-if($_GET['p']) { ?>
-   	 <p><img src="<?php echo JLOG_PATH ?>/img/<?php echo $_GET['p']; ?>" alt="" border="1" height="100"></p>
-       <form onSubmit="jlog_bbcode_img('<?php echo htmlspecialchars($_GET['p']); ?>'); return false;" accept-charset="UTF-8">
+if(isset($_GET['p'])) {
+	$p = htmlspecialchars($_GET['p']);
+	$btnSubmit = htmlspecialchars($l['admin']['pic_insert']);
+	?>
+   	 <p><img src="<?= JLOG_PATH ?>/img/<?= $p ?>" alt="" border="1" height="100"></p>
+       <form onSubmit="jlog_bbcode_img('<?= $p ?>'); return false;" accept-charset="UTF-8">
    	 <p><?php echo $l['admin']['pic_class'] ?><br />
    	    <input id="class" type="text" size="20"></p>
    	 <p><?php echo $l['admin']['pic_alt'] ?><br />
    	    <input id="alt" type="text" size="20"></p>
-   	 <p><button value="<?php echo $l['admin']['pic_insert'] ?>"><?php echo htmlspecialchars($l['admin']['pic_insert']) ?></button></p>
+   	 <p><button value="<?= $btnSubmit ?>"><?= $btnSubmit ?></button></p>
    	 </form>
 <?php
 }
@@ -43,9 +46,12 @@ else {
 	
 		asort($file);
 		reset($file);
-	
-		while ( list($filename, $ctime) = each($file)) {
-		 echo "<a href='?p=".$filename."' ><img height=\"50\" src=\"".JLOG_PATH."/img/".$filename."\"></a>\n";
+
+		foreach ($file as $filename => $ctime) {
+			$filename = htmlspecialchars($filename);
+			?><a href='?p=<?= $filename ?>'>
+				<img height="50" src="<?= JLOG_PATH ?>/img/<?= $filename ?>">
+			</a><?php
 		}
 	}
 }

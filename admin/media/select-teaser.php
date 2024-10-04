@@ -3,13 +3,26 @@
  define("JLOG_ADMIN", true);
  require_once('..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title><?php echo $l['admin']['pic_choose_old_teaser'] ?></title>
+ <meta charset="UTF-8" />
  <link rel="stylesheet" href="<?php echo JLOG_PATH ?>/personal/css/popup.css" type="text/css" media="screen" />
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<script>
+function selectImg(evt) {
+	opener.document.forms['entryform'].elements['teaserpic'].value = this.dataset.img;
+	window.close();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	const btn = document.getElementsByTagName('button');
+	for (let i = 0; i < btn.length; ++i) {
+		btn[i].addEventListener('click', selectImg);
+	}
+});
+</script>
 </head>
 <body>
 <h1><?php echo $l['admin']['pic_choose_old_teaser'] ?></h1> 
@@ -26,18 +39,16 @@ while (false !== ($filename = readdir ($handle))) {
 closedir($handle);
 
 if(is_array($file)) {
-
 	asort($file);
 	reset($file);
 
-	while ( list($filename, $ctime) = each($file)) {
-	 echo "<a href=\"#\"
-		 onclick=\"opener.document.forms['entryform'].elements['teaserpic'].value='';
-		 opener.document.forms['entryform'].elements['teaserpic'].value+='".substr($filename, 2, strlen($filename))."';
-		 window.close();\"><img height=\"50\" src=\"".JLOG_PATH."/img/".$filename."\"></a> ";
+	foreach($file as $filename => $ctime) {
+		$filename = htmlspecialchars($filename);
+		?><button type="button" data-img="<?= substr($filename, 2) ?>">
+		 	<img height="50" src="<?= JLOG_PATH ?>/img/<?= $filename ?>">
+		</button><?php
 	}
 }
-
 ?>
 </body>
 </html>

@@ -22,3 +22,8 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule "^([a-z0-9_\-\./,]+)$" page.php?url=$1 [QSA]
 </IfModule>
+
+# Ein paar nette PHP-Einstellungen die das Leben schoener machen:
+php_flag expose_php off
+php_flag zlib.output_compression on
+php_value zlib.output_compression_level 6

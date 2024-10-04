@@ -1,0 +1,4 @@
+# .htaccess fuer Verzeichnisse, die nicht fuer die Oeffentlichkeit
+# bestimmt sind:
+
+Options -Indexes
