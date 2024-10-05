@@ -86,6 +86,10 @@ class Year_Links {
         }
 }
 
+if (!function_exists('get_magic_quotes_gpc')) {
+	function get_magic_quotes_gpc() { return false; }
+}
+
 // kill Magic Quotes
 function strip($_data) {
   if (!get_magic_quotes_gpc()) return $_data;

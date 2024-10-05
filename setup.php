@@ -176,6 +176,7 @@
 
     global $l;
 
+# FIXME: MySQL has a new API!
     if(!@mysql_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'])) $errors[] = "Falsche Zugangsdaten | ".mysql_error();
     elseif(!@mysql_select_db($data['jlog_db'])) $errors[] = "Datenbank ".$data['jlog_db']." extistiert nicht".mysql_error();
     elseif(!version_compare(mysql_get_server_info(), JLOG_MYSQLV, ">=") == 1) $errors[] = $l['admin']['s_mysqlv_tolow'];

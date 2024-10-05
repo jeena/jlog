@@ -51,10 +51,6 @@ define("JLOG_DB_CATASSIGN", JLOG_DB_PREFIX."catassign");
 define("JLOG_DB_CATEGORIES", JLOG_DB_PREFIX."categories");
 define("JLOG_DB_ATTRIBUTES", JLOG_DB_PREFIX."attributes");
 
-if (!function_exists('get_magic_quotes_gpc')) {
-	function get_magic_quotes_gpc() { return false; }
-}
-
 // we need these files on every page
 require_once(JLOG_BASEPATH.'lang'.DIRECTORY_SEPARATOR.'lang.'.JLOG_LANGUAGE.'.inc.php');
 require_once(JLOG_BASEPATH.'scripts'.DIRECTORY_SEPARATOR.'database.class.php');
