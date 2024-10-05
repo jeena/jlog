@@ -11,15 +11,16 @@
  error_reporting(E_ALL ^ E_NOTICE);
  header("Content-Type: text/html; charset=UTF-8");
 
-
+ // defining to avoid notifications
  define("JLOG_NEW_VERSION", '1.1.0');
  define("JLOG_SETUP", true);
  define("JLOG_ADMIN", false);
  $basepath = dirname( __FILE__ ).DIRECTORY_SEPARATOR;
 
- // defining to avoid notifications
+ require_once('scripts'.DIRECTORY_SEPARATOR.'proto.inc.php');
+
  define("JLOG_WEBSITE", $_SERVER["HTTP_HOST"]);
- define("JLOG_PATH", dirname("http://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]));
+ define("JLOG_PATH", dirname(proto()."://{$_SERVER["HTTP_HOST"]}{$_SERVER["SCRIPT_NAME"]}"));
 
  // read prefered language from browser
  $dir = opendir('.'.DIRECTORY_SEPARATOR.'lang');
@@ -45,7 +46,7 @@
  require('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'url_syntax.php');
  require('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'version.inc.php');
  
- define("JLOG_NEW_VERSION", JLOG_SOFTWARE_VERSION);
+ define("JLOG_NEW_VERSION", JLOG_SOFTWARE_VERSION);	// causes warning because of redefinition
  define("JLOG_PHPV", JLOG_SOFTWARE_PHPV);
  define("JLOG_MYSQLV", JLOG_SOFTWARE_MYSQLV);
  
@@ -53,6 +54,8 @@
  
  $l['admin']['submit'] = $l['admin']['s_install'];
  $setup = new Settings($l);
+
+ $c = '';	// content to display
 
  if($_POST) {
   $setup->importDataByArray(strip($_POST));
@@ -176,10 +179,13 @@
 
     global $l;
 
-# FIXME: MySQL has a new API!
-    if(!@mysql_connect($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'])) $errors[] = "Falsche Zugangsdaten | ".mysql_error();
-    elseif(!@mysql_select_db($data['jlog_db'])) $errors[] = "Datenbank ".$data['jlog_db']." extistiert nicht".mysql_error();
-    elseif(!version_compare(mysql_get_server_info(), JLOG_MYSQLV, ">=") == 1) $errors[] = $l['admin']['s_mysqlv_tolow'];
+    $connect = new mysqli($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'], $data['jlog_db']);
+    if(!$connect) {
+    	$errors[] = "Falsche Zugangsdaten";	// mysqli_error is not available (?)
+    }
+    elseif(!version_compare($connect->server_version, JLOG_MYSQLV, ">=") == 1) {
+    	$errors[] = $l['admin']['s_mysqlv_tolow'];
+    }
     else {
 		 new Query("SET NAMES utf8");
      $create['content'] = new Query($sql['content']);
@@ -225,11 +231,11 @@
 
  function do_htmlpage($content) {
 
-  return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+  return '<!DOCTYPE html>
+<html lang="'.JLOG_LANGUAGE.'
   <title>SETUP Jlog ' . JLOG_NEW_VERSION . '</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="scripts/css/admin.css" type="text/css" />
   <style type="text/css">
    body {
@@ -238,7 +244,7 @@
     font-family: verdana, sans-serif;
     font-size: 100.01%;
    }
-   #container {
+   main {
     font-size: 0.9em;
     background: white;
     padding: 20px;
@@ -265,10 +271,10 @@
   </style>
  </head>
  <body>
-  <div id="container">
-   <h1><a href="http://jeenaparadies.net/projects/jlog/" title="Jlog v'.JLOG_NEW_VERSION.'"><img id="logo" src="http://jeenaparadies.net/img/jlog-logo.png" style="width: 210px; height: 120px;" alt="Jlog" /></a> SETUP</h1>
+  <main>
+   <h1><a href="https://github.com/jeena/jlog/" title="Jlog v'.JLOG_NEW_VERSION.'"><img id="logo" src="http://jeenaparadies.net/img/jlog-logo.png" style="width: 210px; height: 120px;" alt="Jlog" /></a> SETUP</h1>
     '.$content.'
-  </div>
+  </main>
  </body>
 </html>';
  }

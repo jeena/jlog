@@ -25,7 +25,9 @@
 
  if(!file_exists(dirname( __FILE__ ).DIRECTORY_SEPARATOR.'personal'.DIRECTORY_SEPARATOR.'settings.inc.php')) {
     if(dirname($_SERVER['SCRIPT_NAME']) !== "/") $dir = dirname($_SERVER['SCRIPT_NAME']);
-    header("Location: http://".$_SERVER['HTTP_HOST'].$dir."/setup.php");
+    require_once('scripts'.DIRECTORY_SEPARATOR.'proto.inc.php');
+    header('Location: '.proto()."://{$_SERVER['HTTP_HOST']}$dir/setup.php");
+    exit;
  }
  require_once('.'.DIRECTORY_SEPARATOR.'scripts'.DIRECTORY_SEPARATOR.'prepend.inc.php');
 
