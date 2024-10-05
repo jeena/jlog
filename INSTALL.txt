@@ -1,0 +1,75 @@
+###  Weblogsystem Jlog v1.0.2 vom 26.11.2006
+###  Programmiert von Jeena Paradies
+###  E-Mail: jlog@jeenaparadies.net
+###
+###  Projektseite: http://jeenaparadies.net/projects/jlog/
+###
+###  Inhaltsverzeichnis:
+###    I. Installationsanleitung
+###   II. Updateanleitung (1.0.1 => 1.0.2)
+
+
+
+### I. Installationsanleitung
+
+ a) Dieses Programm benötigt mindestens PHP 4.1.1 mit MySQL support
+    und MySQL 4.0.0
+
+ b) Das tar Archiv herunterladen:
+
+     tux@earth:/$ wget http://jeenaparadies.net/projects/jlog/attachment/wiki/versions/jlog-1.0.2.tar.gz?format=raw
+
+ c) Das Archiv entpacken:
+
+     tux@earth:/$ tar -xvzf jlog-1.0.2.tar.gz
+
+    Oder mittels WinZip/WinRar etc.
+
+ d) Alle Dateien auf den Server in das gewünschte Verzeichnis hochladen.
+
+ e) Den Verzeichnissen "personal" und "img" via FTP die Schreibrechte 777 geben.
+
+ f) Setupdatei im Browser aufrufen http://example.com/setup.php
+
+ g) Alle Felder Müssen richtig ausgefüllt werden.
+
+    Anmerkung:
+     sauberer URL:    http://example.com/2005/05/title
+     schmutziger URL: http://example.com/log.php?y=2005&m=05&url=title
+
+ h) Nach der erfolgreichen Installation sollte man unbedingt die Datei "setup.php"
+    aus dem Stammverzeichnis löschen, damit da niemand Unfug treiben kann.
+    Nun kann man die Software benutzen und unter http://example.com/admin/
+    administrieren.
+
+ i) Im Verzeichnis /personal/ befindet sich die template.tpl Datei die das
+    Aussehen steuert, genau so befinden sich im Verzeichnis /personal/css/
+    alle benötigten CSS Dateien. Eine Dokumentation der Software werde
+    ich auch noch erstellen, aber ich denke sie ist ziemlich selbsterklärend.
+
+ j) Wenn du Pages verwenden willst und  saubere URLs eingestellt hast dann
+    kannst du einfach über http://example.com/page-title auf diese zugreifen.
+    Falls du schmutzige URLs eingestellt hast dann kannst du über
+    http://example.com/page.php?url=page-title auf diese zugreifen.
+
+
+### II) Updateanleitung 1.0.1 => 1.0.2
+
+ a) Das Updatescript funktioniert wenn man Jlog Version 1.0.1 bereits
+    installiert hat.
+
+ b) Das Archiv herunterladen (siehe Installationsanleitung Punkt b), entpacken
+    und alle Dateien in das gleiche Verzeichnis hochladen d), dabei werden die
+    alten Dateien überschrieben. Falls man sein altes Template weiternutzen möchte
+    dann bitte das Verzeichnis "personal" NICHT hochladen. Bitte die Datei setup.php
+    aus Sicherheitsgründen löschen.
+
+ c) Das Updatescript muss jetzt noch die Datenbank anpassen. Dazu öffnet man es
+    im Browser unter:
+
+      http://example.com/admin/update.php
+
+    und gibt das Adminpasswort ein. Durch das abshicken wird alles weitere
+    automatisch erledigt.
+
+ d) Überprüfen dass keine Fehler durch veraltete Plugins entstehen.
