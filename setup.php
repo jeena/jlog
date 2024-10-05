@@ -180,9 +180,10 @@
     global $l;
 
     $connect = new mysqli($data['jlog_db_url'], $data['jlog_db_user'], $data['jlog_db_pwd'], $data['jlog_db']);
-    if(!$connect) {
+    if($connect === false) {
     	$errors[] = "Falsche Zugangsdaten";	// mysqli_error is not available (?)
     }
+    # FIXME
     elseif(!version_compare($connect->server_version, JLOG_MYSQLV, ">=") == 1) {
     	$errors[] = $l['admin']['s_mysqlv_tolow'];
     }
@@ -280,8 +281,8 @@
  }
  
   function getlang ($allowed, $default) {
-    $string = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-    if (empty($string)) {
+    $string = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? null;
+    if (null === $string) {
       return $default;
     }
     
