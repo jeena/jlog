@@ -80,7 +80,7 @@ class PEAR
     var $_error_class = 'PEAR_Error';
     var $_expected_errors = array();
 
-    function PEAR($error_class = null)
+    function __construct($error_class = null)
     {
         $classname = strtolower(get_class($this));
         if ($this->_debug) {
@@ -111,7 +111,7 @@ class PEAR
         }
     }
 
-    function &getStaticProperty($class, $var)
+    static function &getStaticProperty($class, $var)
     {
         static $properties;
         return $properties[$class][$var];
@@ -122,7 +122,7 @@ class PEAR
         $GLOBALS['_PEAR_shutdown_funcs'][] = array($func, $args);
     }
 
-    function isError($data, $code = null)
+    static function isError($data, $code = null)
     {
         if (is_a($data, 'PEAR_Error')) {
             if (is_null($code)) {
@@ -136,7 +136,7 @@ class PEAR
         return false;
     }
 
-    function setErrorHandling($mode = null, $options = null)
+    static function setErrorHandling($mode = null, $options = null)
     {
         if (isset($this) && is_a($this, 'PEAR')) {
             $setmode     = &$this->_default_error_mode;
@@ -229,7 +229,8 @@ class PEAR
         }
     }
 
-    function &raiseError($message = null,
+    // FIXME Strict Standards
+    static function &raiseError($message = null,
                          $code = null,
                          $mode = null,
                          $options = null,
@@ -456,7 +457,7 @@ function _PEAR_call_destructors()
 class PEAR_Error
 {
 
-    function PEAR_Error($message = 'unknown error', $code = null,
+    function __construct($message = 'unknown error', $code = null,
                         $mode = null, $options = null, $userinfo = null)
     {
         if ($mode === null) {
@@ -619,16 +620,16 @@ class PEAR_Error
 // | All rights reserved.                                                  |
 // +-----------------------------------------------------------------------+
 
-define('HTTP_REQUEST_METHOD_GET',     'GET',     true);
-define('HTTP_REQUEST_METHOD_HEAD',    'HEAD',    true);
-define('HTTP_REQUEST_METHOD_POST',    'POST',    true);
-define('HTTP_REQUEST_METHOD_PUT',     'PUT',     true);
-define('HTTP_REQUEST_METHOD_DELETE',  'DELETE',  true);
-define('HTTP_REQUEST_METHOD_OPTIONS', 'OPTIONS', true);
-define('HTTP_REQUEST_METHOD_TRACE',   'TRACE',   true);
+define('HTTP_REQUEST_METHOD_GET',     'GET');
+define('HTTP_REQUEST_METHOD_HEAD',    'HEAD');
+define('HTTP_REQUEST_METHOD_POST',    'POST');
+define('HTTP_REQUEST_METHOD_PUT',     'PUT');
+define('HTTP_REQUEST_METHOD_DELETE',  'DELETE');
+define('HTTP_REQUEST_METHOD_OPTIONS', 'OPTIONS');
+define('HTTP_REQUEST_METHOD_TRACE',   'TRACE');
 
-define('HTTP_REQUEST_HTTP_VER_1_0', '1.0', true);
-define('HTTP_REQUEST_HTTP_VER_1_1', '1.1', true);
+define('HTTP_REQUEST_HTTP_VER_1_0', '1.0');
+define('HTTP_REQUEST_HTTP_VER_1_1', '1.1');
 
 class HTTP_Request {
 
@@ -658,7 +659,7 @@ class HTTP_Request {
     var $_readTimeout = null;
     var $_socketOptions = null;
 
-    function HTTP_Request($url = '', $params = array())
+    function __construct($url = '', $params = array())
     {
         $this->_sock           = new Net_Socket();
         $this->_method         =  HTTP_REQUEST_METHOD_GET;
@@ -912,7 +913,7 @@ class HTTP_Request {
                 $this->_url = new Net_URL($redirect);
                 $this->addHeader('Host', $this->_generateHostHeader());
             // Absolute path
-            } elseif ($redirect{0} == '/') {
+            } elseif ($redirect[0] == '/') {
                 $this->_url->path = $redirect;
 
             // Relative path
@@ -1123,7 +1124,7 @@ class HTTP_Response
     var $_body = '';
     var $_chunkLength = 0;
     var $_listeners = array();
-    function HTTP_Response(&$sock, &$listeners)
+    function __construct(&$sock, &$listeners)
     {
         $this->_sock      =& $sock;
         $this->_listeners =& $listeners;
@@ -1606,10 +1607,13 @@ class Net_URL
     var $querystring;
     var $anchor;
     var $useBrackets;
+
+    /* FIXME Strict Standards vs. PHP 4
     function Net_URL($url = null, $useBrackets = true)
     {
         $this->__construct($url, $useBrackets);
     }
+    */
 
     function __construct($url = null, $useBrackets = true)
     {
@@ -1667,8 +1671,8 @@ class Net_URL
                         break;
 
                     case 'path':
-                        if ($value{0} == '/') {
-                            $this->path = $value;
+                        if ($value[0] == '/') {
+			    $this->path = $value;
                         } else {
                             $path = dirname($this->path) == DIRECTORY_SEPARATOR ? '' : dirname($this->path);
                             $this->path = sprintf('%s/%s', $path, $value);
