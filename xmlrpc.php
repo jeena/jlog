@@ -30,7 +30,7 @@ class Jlog_GetPingback {
     var $title = "";              // string
     var $sid = "";                // string
 
-    function Jlog_GetPingback($db_content, $db_comments, $path, $sid = NULL) {
+    function __construct($db_content, $db_comments, $path, $sid = NULL) {
         $this->db_content = $db_content;
         $this->db_comments = $db_comments;
         $this->path = $path;
@@ -191,7 +191,7 @@ class Jlog_SendPingback {
     var $pageslinkedto = array();
     var $useragent = "";
 
-    function Jlog_SendPingback($html, $pagelinkedfrom, $useragent) {
+    function __construct($html, $pagelinkedfrom, $useragent) {
         // neet to prevent &amp; in url
         $this->pagelinkedfrom = htmlspecialchars_decode($pagelinkedfrom);
         $this->useragent = $useragent;
