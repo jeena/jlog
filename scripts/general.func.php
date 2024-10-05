@@ -1,4 +1,8 @@
 <?php
+// Attributes for <input type="password"> to prevent password leaks to
+// "intelligent" browser services if toggled to text for showing the password.
+define('NO_PASSWORD_FORM_LEAKS', 'autocomplete="off" spellcheck="false" writingsuggestions="false"');
+
 // get weblog link
 function blog($date, $url, $section = 'weblog') {
         if($section == 'weblog' OR $section == 'comment') {

@@ -43,7 +43,7 @@ class JlogUpdater
     {
         $html = '<form action="' . $_SERVER['SCRIPT_NAME'] . '" method="post">'
               . '<p>' . $l['admin']['e_admin_password'] . ': '
-              . '<input type="password" name="jlog_password" value="" />'
+              . '<input type="password" name="jlog_password" value="" '.NO_PASSWORD_FORM_LEAKS.'/>'
               . '</p>';
         $version = $this->getOldVersion();
         while (isset($this->versions[$version])) {

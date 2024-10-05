@@ -62,7 +62,7 @@ $c['main'] = '
   ' . $false_password . '
   <form action="login.php" method="post" accept-charset="UTF-8">
    <p><label for="password">' . $l['admin']['login_password'] . '</label>
-      <input class="userdata" id="password" type="password" name="password" autocomplete="off" spellcheck="false" writingsuggestions="false"/>
+      <input class="userdata" id="password" type="password" name="password" '.NO_PASSWORD_FORM_LEAKS.'/>
       <input style="display: none;" name="username" type="text" value="do-not-change" /></p>
    <p><input type="hidden" name="url" value="' . htmlspecialchars(!empty($get['url']) ? $get['url'] : '') . '" />
       <button value="' . $btnValue . '">' . $btnValue . '</button></p>

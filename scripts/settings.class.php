@@ -331,9 +331,9 @@ class Settings {
            <p><label for='publisher'>".$this->l['admin']['m_publisher']."</label><br />
               <input class='userdata' id='publisher' name='jlog_publisher' type='text' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_publisher')."' /></p>
            <p><label for='admin_password'>".$this->l['admin']['m_admin_password'].$admincenter_password."</label><br />
-              <input class='userdata' id='admin_password' name='jlog_admin_password' type='password' size='20' maxlength='255' /></p>
+              <input class='userdata' id='admin_password' name='jlog_admin_password' type='password' size='20' maxlength='255'".NO_PASSWORD_FORM_LEAKS."/></p>
            <p><label for='admin_password_again'>".$this->l['admin']['m_admin_password_again'].$admincenter_password."</label><br />
-              <input class='userdata' id='admin_password_again' name='jlog_admin_password_again' type='password' size='20' maxlength='255' /></p>
+              <input class='userdata' id='admin_password_again' name='jlog_admin_password_again' type='password' size='20' maxlength='255'".NO_PASSWORD_FORM_LEAKS."/></p>
            <p><label for='email'>".$this->l['admin']['m_email']."</label><br />
               <input class='userdata' id='email' name='jlog_email' type='text' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_email')."' /></p>
            <p><label for='description'>".$this->l['admin']['m_description']."</label><br />
@@ -373,7 +373,7 @@ class Settings {
            <p><label for='db_user'>".$this->l['admin']['m_db_user']."</label><br />
               <input class='userdata' id='db_user' name='jlog_db_user' type='text' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_db_user')."' /></p>
            <p><label for='db_pwd'>".$this->l['admin']['m_db_pwd']."</label><br />
-              <input class='userdata' id='db_pwd' name='jlog_db_pwd' type='password' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_db_pwd')."' /></p>
+              <input class='userdata' id='db_pwd' name='jlog_db_pwd' type='password' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_db_pwd').'\' '.NO_PASSWORD_FORM_LEAKS."/></p>
            <p><label for='db_prefix'>".$this->l['admin']['m_db_prefix']."</label><br />
               <input class='userdata' id='db_prefix' name='jlog_db_prefix' type='text' size='20' maxlength='255' value='".$this->defaultValue($data, 'jlog_db_prefix')."' />
               <input name='jlog_start_year' type='hidden' value='".$this->defaultValue($data, 'jlog_start_year', date("Y"))."' /></p>
@@ -384,7 +384,7 @@ class Settings {
         }
     
         $form .= "
-          <p><input type='submit' class='button' value='".$this->l['admin']['submit']."' /></p>
+          <p><button value='{$this->l['admin']['submit']}'>{$this->l['admin']['submit']}</button></p>
          </form>
          ";
     
